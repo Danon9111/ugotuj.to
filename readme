@@ -3,3 +3,61 @@ Hello my friends!
 Welcome in ugotuj.to
 
 Fingers cross and come back next year ;-)
+
+ugotuj.to is temporary name for our project, which will be changed in the future.
+
+Main goal of this file is to present process and describe project.
+
+1. About
+
+ugotuj.to is an academic project for Inżynierski Projekt Zespołowy created by four person team.
+
+Main purpose of team is to prepare web application which will be fully working. 
+
+Main functionality will be coock book which will be created by community. All registered users will be able to add new, they own recipe.
+Not register users will be able to read recipes which will be in services. 
+
+Second functionality will be search. Every user will be able to search for the best recipe for him. 
+
+In plans are also some additional functions related to gameplay. Also we are thinking about Android application.
+
+2. Developing process
+
+	1) We are working on feature branch, which are created from the develop* branch
+	2) When work on feature branch is done** it can be merged to the develop branch
+	3) After every iteration (1 Sprint probably) develop branch will be merged to the master*** branch
+	
+	* develop branch is this one on which are be made all changes and on which will be done tests
+	** done mean that task which was developed have finished developed work and was tested. This also mean that 
+	all acceptance criteria are made.
+	*** master branch is the last, production version, which can see any user on the production environment. On this branch
+	can not be made any developer work.
+
+	Visualization of process is visible in developing_process.png file.
+	
+3. Testing process
+
+	We are thinking about split tests to manual tests and automation tests. 
+	
+	For that moment no more details are known. 
+	
+4. Methodology 
+	
+	Whole project is planned to be made in Agile methodology. Probably it will be Scrum.
+	But because this is academic project, it will be hard to do all Scrum ceremonies like it it in real project.
+	
+	We can be sure that if it will be Scrum we will be doing sprints (probably two weeks per iteration). After each sprint will be needed some Sprint 
+	Review. Maybe also it will be needed Retrospective. Also every week will be needed Planning and probably Grooming. We will try to do this project
+	with all good practices. 
+	
+5. Technology
+
+	For that moment is not ready any basic technology. But after first brainstorming we know that will be needed some database. Also web application 
+	will be done with HTML, CSS and JS. 
+	
+	Android application if will be done, will be done in Java. 
+	
+
+	
+Document created by Andrzej Doliński (Danon9111).
+Last update: 19/04/2015
