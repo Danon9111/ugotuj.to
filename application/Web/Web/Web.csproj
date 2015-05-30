@@ -181,6 +181,9 @@
     <Compile Include="Models\Przepis.cs">
       <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Uzytkownik.cs">
+      <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +232,7 @@
     <Content Include="Models\KsiazkaKucharskaModel.edmx.diagram">
       <DependentUpon>KsiazkaKucharskaModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Serwer.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

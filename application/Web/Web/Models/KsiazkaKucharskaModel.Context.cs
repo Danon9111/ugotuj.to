@@ -26,5 +26,6 @@ namespace Web.Models
         }
     
         public virtual DbSet<Przepis> PrzepisSet { get; set; }
+        public virtual DbSet<Uzytkownik> UzytkownikSet { get; set; }
     }
 }

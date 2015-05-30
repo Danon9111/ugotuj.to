@@ -7,6 +7,7 @@
     <Schema Namespace="KsiazkaKucharskaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="KsiazkaKucharskaModelStoreContainer">
     <EntitySet Name="PrzepisSet" EntityType="KsiazkaKucharskaModel.Store.PrzepisSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UzytkownikSet" EntityType="KsiazkaKucharskaModel.Store.UzytkownikSet" store:Type="Tables" Schema="dbo" />
   </EntityContainer>
   <EntityType Name="PrzepisSet">
     <Key>
@@ -24,12 +25,23 @@
     <Property Name="kategoria" Type="nvarchar(max)" Nullable="false" />
     <Property Name="skladniki" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="UzytkownikSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nazwa" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="haslo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="KsiazkaKucharskaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="KsiazkaKucharskaModelContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PrzepisSet" EntityType="KsiazkaKucharskaModel.Przepis" />
+          <EntitySet Name="UzytkownikSet" EntityType="KsiazkaKucharskaModel.Uzytkownik" />
         </EntityContainer>
         <EntityType Name="Przepis">
           <Key>
@@ -46,6 +58,16 @@
           <Property Name="trudnosc" Type="Int32" Nullable="true" />
           <Property Name="kategoria" Type="String" Nullable="false" />
           <Property Name="skladniki" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uzytkownik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" Nullable="false" />
+          <Property Name="login" Type="String" Nullable="false" />
+          <Property Name="haslo" Type="String" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -67,6 +89,17 @@
           <ScalarProperty Name="trudnosc" ColumnName="trudnosc" />
           <ScalarProperty Name="kategoria" ColumnName="kategoria" />
           <ScalarProperty Name="skladniki" ColumnName="skladniki" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UzytkownikSet">
+      <EntityTypeMapping TypeName="IsTypeOf(KsiazkaKucharskaModel.Uzytkownik)">
+        <MappingFragment StoreEntitySet="UzytkownikSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="haslo" ColumnName="haslo" />
+          <ScalarProperty Name="email" ColumnName="email" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
