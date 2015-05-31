@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/30/2015 01:13:32
+-- Date Created: 05/31/2015 18:48:23
 -- Generated from EDMX file: C:\Users\Paweł\Source\Repos\ugotuj.to\application\Web\Web\Models\KsiazkaKucharskaModel.edmx
 -- --------------------------------------------------
 
@@ -24,6 +24,9 @@ GO
 
 IF OBJECT_ID(N'[dbo].[PrzepisSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PrzepisSet];
+GO
+IF OBJECT_ID(N'[dbo].[UzytkownikSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UzytkownikSet];
 GO
 
 -- --------------------------------------------------
@@ -49,10 +52,11 @@ GO
 -- Creating table 'UzytkownikSet'
 CREATE TABLE [dbo].[UzytkownikSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [nazwa] nvarchar(max)  NOT NULL,
+    [nazwa] nvarchar(max)  NULL,
     [login] nvarchar(max)  NOT NULL,
     [haslo] nvarchar(max)  NOT NULL,
-    [email] nvarchar(max)  NOT NULL
+    [email] nvarchar(max)  NOT NULL,
+    [token] nvarchar(max)  NULL
 );
 GO
 

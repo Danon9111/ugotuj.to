@@ -30,10 +30,11 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nazwa" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="nazwa" Type="nvarchar(max)" Nullable="true" />
     <Property Name="login" Type="nvarchar(max)" Nullable="false" />
     <Property Name="haslo" Type="nvarchar(max)" Nullable="false" />
     <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="token" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -64,10 +65,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nazwa" Type="String" Nullable="false" />
+          <Property Name="nazwa" Type="String" Nullable="true" />
           <Property Name="login" Type="String" Nullable="false" />
           <Property Name="haslo" Type="String" Nullable="false" />
           <Property Name="email" Type="String" Nullable="false" />
+          <Property Name="token" Type="String" Nullable="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -100,6 +102,7 @@
           <ScalarProperty Name="login" ColumnName="login" />
           <ScalarProperty Name="haslo" ColumnName="haslo" />
           <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="token" ColumnName="token" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

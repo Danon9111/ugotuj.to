@@ -19,5 +19,6 @@ namespace Web.Models
         public string login { get; set; }
         public string haslo { get; set; }
         public string email { get; set; }
+        public string token { get; set; }
     }
 }

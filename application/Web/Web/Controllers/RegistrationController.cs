@@ -14,24 +14,15 @@ namespace Web.Controllers
         KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
         // GET api/values
-        public IEnumerable<string> Get()
+        public User Get()
         {
-            return new string[] { "value1", "value2" };
+            User user = new User();
+            user.login = "test_login";
+            user.password = "test_password";
+            user.email = "test_email";
+            return user;
         }
-
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        public class User
-        {
-            public String login { get; set; }
-            public String password { get; set; }
-            public String email { get; set; }
-        }
-
+        
         // POST api/values
         public String Post([FromBody]User user)
         {
@@ -74,14 +65,11 @@ namespace Web.Controllers
             }
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        public class User
         {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
+            public String login { get; set; }
+            public String password { get; set; }
+            public String email { get; set; }
         }
     }
 }
