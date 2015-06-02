@@ -48,6 +48,8 @@ namespace Web.Controllers
             
             db.UzytkownikSet.Add(uzytkownik);
 
+            db.SaveChanges();
+
             return "Konto użytkownika zostało dodane poprawnie!";
         }
 
