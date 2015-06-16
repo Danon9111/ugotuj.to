@@ -34,6 +34,14 @@ namespace Web.Controllers
             przepis.data_utworzenia = DateTime.Now;
             przepis.film = recipe.video;
 
+            if (przepis.nazwa.Length == 0) return "Incorrect name!";
+            if (przepis.opis.Length == 0) return "Incorrect description!";
+            if (przepis.kategoria.Length == 0) return "Incorrect category!";
+            if (przepis.przygotowanie.Length == 0) return "Incorrect preparation!";
+            if (przepis.skladniki.Length == 0) return "Incorrect ingredients!";
+            if (przepis.trudnosc == null) return "Incorrect difficulty!";
+            if (przepis.czas_wykonania <= 0) return "Incorrect readyIn time!";
+
             db.PrzepisSet.Add(przepis);
 
             db.SaveChanges();
