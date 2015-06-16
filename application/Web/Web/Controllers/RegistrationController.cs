@@ -36,7 +36,12 @@ namespace Web.Controllers
                           where usr.login == login
                           select usr;
 
+            var element2 = from usr in db.UzytkownikSet
+                          where usr.email == email
+                          select usr;
+
             if (element.Count() != 0) return "Użytkownik o takim loginie istnieje!";
+            if (element2.Count() != 0) return "Istnieje użytkownik o takim adresie email!";
             if (password.Length < 5) return "Zbyt krótkie hasło!";
             if (!IsValid(email)) return "Podane hasło jest niepoprawne!";
 
