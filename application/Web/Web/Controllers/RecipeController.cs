@@ -28,6 +28,7 @@ namespace Web.Controllers
             recipe.creationDate = recipeFromDb.data_utworzenia.Value;
             recipe.description = recipeFromDb.opis;
             recipe.difficulty = (int)recipeFromDb.trudnosc;
+            recipe.preparation = recipeFromDb.przygotowanie;
             recipe.ingredients = recipeFromDb.skladniki;
             recipe.name = recipeFromDb.nazwa;
             recipe.photo = recipeFromDb.zdjecie;
