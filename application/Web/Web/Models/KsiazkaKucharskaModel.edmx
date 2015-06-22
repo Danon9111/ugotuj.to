@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KsiazkaKucharskaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="KsiazkaKucharskaModelStoreContainer">
+    <EntitySet Name="PrzepisSet" EntityType="KsiazkaKucharskaModel.Store.PrzepisSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UzytkownikSet" EntityType="KsiazkaKucharskaModel.Store.UzytkownikSet" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="PrzepisSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nazwa" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="opis" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="przygotowanie" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="zdjecie" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="film" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="data_utworzenia" Type="datetime" Nullable="true" />
+    <Property Name="czas_wykonania" Type="int" Nullable="false" />
+    <Property Name="trudnosc" Type="int" Nullable="true" />
+    <Property Name="kategoria" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="skladniki" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UzytkownikSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nazwa" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="haslo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="token" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="KsiazkaKucharskaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="KsiazkaKucharskaModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PrzepisSet" EntityType="KsiazkaKucharskaModel.Przepis" />
+          <EntitySet Name="UzytkownikSet" EntityType="KsiazkaKucharskaModel.Uzytkownik" />
+        </EntityContainer>
+        <EntityType Name="Przepis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" Nullable="false" />
+          <Property Name="opis" Type="String" Nullable="false" />
+          <Property Name="przygotowanie" Type="String" Nullable="false" />
+          <Property Name="zdjecie" Type="String" Nullable="true" />
+          <Property Name="film" Type="String" Nullable="true" />
+          <Property Name="data_utworzenia" Type="DateTime" Nullable="true" />
+          <Property Name="czas_wykonania" Type="Int32" Nullable="false" />
+          <Property Name="trudnosc" Type="Int32" Nullable="true" />
+          <Property Name="kategoria" Type="String" Nullable="false" />
+          <Property Name="skladniki" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uzytkownik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" Nullable="true" />
+          <Property Name="login" Type="String" Nullable="false" />
+          <Property Name="haslo" Type="String" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" />
+          <Property Name="token" Type="String" Nullable="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KsiazkaKucharskaModelStoreContainer" CdmEntityContainer="KsiazkaKucharskaModelContainer">
+    <EntitySetMapping Name="PrzepisSet">
+      <EntityTypeMapping TypeName="IsTypeOf(KsiazkaKucharskaModel.Przepis)">
+        <MappingFragment StoreEntitySet="PrzepisSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+          <ScalarProperty Name="opis" ColumnName="opis" />
+          <ScalarProperty Name="przygotowanie" ColumnName="przygotowanie" />
+          <ScalarProperty Name="zdjecie" ColumnName="zdjecie" />
+          <ScalarProperty Name="film" ColumnName="film" />
+          <ScalarProperty Name="data_utworzenia" ColumnName="data_utworzenia" />
+          <ScalarProperty Name="czas_wykonania" ColumnName="czas_wykonania" />
+          <ScalarProperty Name="trudnosc" ColumnName="trudnosc" />
+          <ScalarProperty Name="kategoria" ColumnName="kategoria" />
+          <ScalarProperty Name="skladniki" ColumnName="skladniki" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UzytkownikSet">
+      <EntityTypeMapping TypeName="IsTypeOf(KsiazkaKucharskaModel.Uzytkownik)">
+        <MappingFragment StoreEntitySet="UzytkownikSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="haslo" ColumnName="haslo" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="token" ColumnName="token" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
