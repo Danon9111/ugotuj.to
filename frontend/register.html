@@ -1,0 +1,27 @@
+<div ng-controller="registerNewUserController">
+  <fieldset name="registration">
+    <legend>Rejestracja</legend>
+    <form class="contact-form" role="form">
+      <div class="contact-form-group left">
+        <label for="login">Login</label>
+        <input ng-model="registerForm.login" id="login" type="text" placeholder="Submit login">
+      </div>
+      <div class="contact-form-group left">
+        <label for="email">E-mail</label>
+        <input ng-model="registerForm.email" id="email" type="text" placeholder="Submit e-mail">
+      </div>        
+      <div class="contact-form-group left">
+        <label for="password">Password</label>
+        <input ng-model="registerForm.password" id="password" type="password" placeholder="Submit password">
+      </div>
+      <div class="contact-form-group left">
+        <label for="passwordVerify">Confirm password field</label>
+        <input ng-model="registerForm.passwordVerify" id="passwordVerify" type="password" placeholder="Submit password">
+      </div>
+      <button ng-click="registerForm.submitTheForm()">Register</button>
+    </form>
+  </fieldset>
+  <div ng-class="msgObj.msgClass">Status: {{ msgObj.msgContent }}</div>
+  <br>
+  <img ng-class="loadingState" src="img/loading.gif"/>
+</div>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pl" data-ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <!--<base href="/Frontend/">-->
+    <title>{{ meta.title }}</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-custom.css">
+    <!--<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>-->
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.13.0.min.js"></script>
+    <!-- Modules -->
+    <script src="js/app.js"></script>
+    <!-- Controllers -->
+    <script src="js/controllers/loginUserController.js"></script>
+    <script src="js/controllers/logoutUserController.js"></script>
+    <script src="js/controllers/addNewRecipeController.js"></script>
+    <script src="js/controllers/showRecipeController.js"></script>
+    <script src="js/controllers/registerNewUserController.js"></script>
+    <script src="js/controllers/changeUserPasswordController.js"></script>
+    
+    <!-- Scripts -->
+    <script src="js/ag/angular-cookies.js"></script>
+    <script src="js/ag/angular-route.min.js"></script>
+  </head>
+  <body>
+    <span data-ng-repeat="(key, value) in meta.activeLinks">
+      <a data-ng-href="#{{ value }}">{{ key }}</a> | 
+    </span>
+    <div data-ng-view></div>
+  </body>
+</html>
