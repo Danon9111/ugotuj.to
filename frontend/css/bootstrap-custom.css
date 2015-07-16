@@ -1,0 +1,47 @@
+/*################### Nawigacja --*/
+
+body {
+    padding-top: 20px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+}
+
+.navbar-fixed-top .nav {
+    padding: 15px 0;
+}
+
+.navbar-fixed-top .navbar-brand {
+    padding: 0 15px;
+}
+
+@media(min-width:768px) {
+    body {
+        padding-top: 20px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+    }
+
+    .navbar-fixed-top .navbar-brand {
+        padding: 15px 0;
+    }
+}
+
+#navvvv li > active {
+  background-color: red !important;
+}
+
+.msg-success {
+    background-color: green;
+}
+
+.msg-alert {
+    background-color: red;
+}
+
+.msg-info {
+    background-color: #b6b6b6;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
