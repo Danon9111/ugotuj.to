@@ -162,8 +162,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
+    <Compile Include="Controllers\RandomRecipeController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\SearchRecipeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -185,6 +187,7 @@
     <Compile Include="Models\Przepis.cs">
       <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\Uzytkownik.cs">
       <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
     </Compile>

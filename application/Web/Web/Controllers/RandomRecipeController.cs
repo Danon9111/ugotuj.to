@@ -8,17 +8,17 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-    public class RecipeController : ApiController
+    public class RandomRecipeController : ApiController
     {
         KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
-        public Recipe Get(int id)
+        public Recipe Get()
         {
-            var element = from usr in db.PrzepisSet
-                          where usr.Id == id
-                          select usr;
-
-            if (element.Count() == 0) return new Recipe("This recipe not exist!");
+            var element = db.PrzepisSet.ToList();
+            
+            Shuffle(element);
+            
+            if (element.Count() == 0) return new Recipe("No recipes found!");
 
             var recipeFromDb = element.ToList()[0];
 
@@ -35,6 +35,19 @@ namespace Web.Controllers
             recipe.video = recipeFromDb.film;
 
             return recipe;
+        }
+        public void Shuffle<T>(IList<T> list)
+        {
+            int n = list.Count;
+            Random rnd = new Random();
+            while (n > 1)
+            {
+                int k = (rnd.Next(0, n) % n);
+                n--;
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
         }
     }
 }

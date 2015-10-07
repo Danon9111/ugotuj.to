@@ -23,13 +23,9 @@ namespace Web.Controllers
 
             if (element.Count() == 0) return new Response("Incorrect username or password!");
 
-            //db.UzytkownikSet.Remove(element.ToList()[0]);
-
             Response response = new Response();
             response.token = GenRandString(64);
             element.ToList()[0].token = response.token;
-
-            //db.UzytkownikSet.Add(element.ToList()[0]);
 
             db.SaveChanges();
 
