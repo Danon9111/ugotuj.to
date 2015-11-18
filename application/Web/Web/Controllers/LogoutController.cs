@@ -29,7 +29,7 @@ namespace Web.Controllers
         public String Post([FromBody]String token)
         {
             var element = from usr in db.UzytkownikSet
-                          where usr.token == token
+                          where usr.token.Equals(token)
                           select usr;
 
             if (element.Count() == 0) return "Incorrect token!";

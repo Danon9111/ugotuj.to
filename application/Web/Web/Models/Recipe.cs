@@ -14,6 +14,7 @@ namespace Web.Models
             this.error = error;
         }
 
+        public int id { get; set; }
         public String name { get; set; }
         public String description { get; set; }
         public String preparation { get; set; }

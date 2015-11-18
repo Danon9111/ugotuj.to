@@ -23,6 +23,7 @@ namespace Web.Controllers
             var recipeFromDb = element.ToList()[0];
 
             Recipe recipe = new Recipe();
+            recipe.id = recipeFromDb.Id;
             recipe.category = recipeFromDb.kategoria;
             recipe.creationDate = recipeFromDb.data_utworzenia.Value;
             recipe.description = recipeFromDb.opis;

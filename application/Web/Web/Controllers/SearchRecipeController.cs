@@ -27,6 +27,7 @@ namespace Web.Controllers
             foreach (var element in recipes)
             {
                 Recipe recipe = new Recipe();
+                recipe.id = element.Id;
                 recipe.category = element.kategoria;
                 recipe.creationDate = element.data_utworzenia.Value;
                 recipe.description = element.opis;
