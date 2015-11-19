@@ -8,6 +8,11 @@
   <EntityContainer Name="KsiazkaKucharskaModelStoreContainer">
     <EntitySet Name="PrzepisSet" EntityType="KsiazkaKucharskaModel.Store.PrzepisSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UzytkownikSet" EntityType="KsiazkaKucharskaModel.Store.UzytkownikSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PasswordReminderSet" EntityType="KsiazkaKucharskaModel.Store.PasswordReminderSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UzytkownikPasswordReminder" Association="KsiazkaKucharskaModel.Store.UzytkownikPasswordReminder">
+      <End Role="Uzytkownik" EntitySet="UzytkownikSet" />
+      <End Role="PasswordReminder" EntitySet="PasswordReminderSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="PrzepisSet">
     <Key>
@@ -36,6 +41,27 @@
     <Property Name="email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="token" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
+  <EntityType Name="PasswordReminderSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="hash_string" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="creation_date" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UzytkownikId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UzytkownikPasswordReminder">
+    <End Role="Uzytkownik" Type="KsiazkaKucharskaModel.Store.UzytkownikSet" Multiplicity="1" />
+    <End Role="PasswordReminder" Type="KsiazkaKucharskaModel.Store.PasswordReminderSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uzytkownik">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PasswordReminder">
+        <PropertyRef Name="UzytkownikId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -43,6 +69,11 @@
         <EntityContainer Name="KsiazkaKucharskaModelContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PrzepisSet" EntityType="KsiazkaKucharskaModel.Przepis" />
           <EntitySet Name="UzytkownikSet" EntityType="KsiazkaKucharskaModel.Uzytkownik" />
+          <EntitySet Name="PasswordReminderSet" EntityType="KsiazkaKucharskaModel.PasswordReminder" />
+          <AssociationSet Name="UzytkownikPasswordReminder" Association="KsiazkaKucharskaModel.UzytkownikPasswordReminder">
+            <End Role="Uzytkownik" EntitySet="UzytkownikSet" />
+            <End Role="PasswordReminder" EntitySet="PasswordReminderSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Przepis">
           <Key>
@@ -70,7 +101,30 @@
           <Property Name="haslo" Type="String" Nullable="false" />
           <Property Name="email" Type="String" Nullable="false" />
           <Property Name="token" Type="String" Nullable="true" />
+          <NavigationProperty Name="PasswordReminder" Relationship="KsiazkaKucharskaModel.UzytkownikPasswordReminder" FromRole="Uzytkownik" ToRole="PasswordReminder" />
         </EntityType>
+        <EntityType Name="PasswordReminder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hash_string" Type="String" Nullable="false" />
+          <Property Name="creation_date" Type="String" Nullable="false" />
+          <NavigationProperty Name="Uzytkownik" Relationship="KsiazkaKucharskaModel.UzytkownikPasswordReminder" FromRole="PasswordReminder" ToRole="Uzytkownik" />
+          <Property Name="UzytkownikId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UzytkownikPasswordReminder">
+          <End Type="KsiazkaKucharskaModel.Uzytkownik" Role="Uzytkownik" Multiplicity="1" />
+          <End Type="KsiazkaKucharskaModel.PasswordReminder" Role="PasswordReminder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uzytkownik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PasswordReminder">
+              <PropertyRef Name="UzytkownikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -103,6 +157,16 @@
           <ScalarProperty Name="haslo" ColumnName="haslo" />
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="token" ColumnName="token" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PasswordReminderSet">
+      <EntityTypeMapping TypeName="IsTypeOf(KsiazkaKucharskaModel.PasswordReminder)">
+        <MappingFragment StoreEntitySet="PasswordReminderSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="hash_string" ColumnName="hash_string" />
+          <ScalarProperty Name="creation_date" ColumnName="creation_date" />
+          <ScalarProperty Name="UzytkownikId" ColumnName="UzytkownikId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

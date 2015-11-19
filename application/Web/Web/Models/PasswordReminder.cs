@@ -15,30 +15,20 @@ namespace Web.Models
 using System;
     using System.Collections.Generic;
     
-public partial class Przepis
+public partial class PasswordReminder
 {
 
     public int Id { get; set; }
 
-    public string nazwa { get; set; }
+    public string hash_string { get; set; }
 
-    public string opis { get; set; }
+    public string creation_date { get; set; }
 
-    public string przygotowanie { get; set; }
+    public int UzytkownikId { get; set; }
 
-    public string zdjecie { get; set; }
 
-    public string film { get; set; }
 
-    public Nullable<System.DateTime> data_utworzenia { get; set; }
-
-    public int czas_wykonania { get; set; }
-
-    public Nullable<int> trudnosc { get; set; }
-
-    public string kategoria { get; set; }
-
-    public string skladniki { get; set; }
+    public virtual Uzytkownik Uzytkownik { get; set; }
 
 }
 

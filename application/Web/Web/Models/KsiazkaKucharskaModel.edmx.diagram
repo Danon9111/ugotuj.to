@@ -6,7 +6,9 @@
     <edmx:Diagrams>
       <Diagram DiagramId="fb6c81f8c48040df86b5b873d22efb45" Name="Diagram1" >
         <EntityTypeShape EntityType="KsiazkaKucharskaModel.Przepis" Width="1.5" PointX="2.625" PointY="1" />
-        <EntityTypeShape EntityType="KsiazkaKucharskaModel.Uzytkownik" Width="1.5" PointX="5" PointY="1" />
+        <EntityTypeShape EntityType="KsiazkaKucharskaModel.Uzytkownik" Width="1.5" PointX="4.375" PointY="1" />
+        <EntityTypeShape EntityType="KsiazkaKucharskaModel.PasswordReminder" Width="1.5" PointX="6.125" PointY="1" />
+        <AssociationConnector Association="KsiazkaKucharskaModel.UzytkownikPasswordReminder" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/31/2015 18:48:23
--- Generated from EDMX file: C:\Users\Paweł\Source\Repos\ugotuj.to\application\Web\Web\Models\KsiazkaKucharskaModel.edmx
+-- Date Created: 11/18/2015 17:46:50
+-- Generated from EDMX file: C:\Users\Paweł\Documents\GitHubVisualStudio\ugotuj.to\application\Web\Web\Models\KsiazkaKucharskaModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [ksiazka_kucharska];
+USE [bpit21_ugotuj];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,6 +17,9 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_UzytkownikPasswordReminder]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PasswordReminderSet] DROP CONSTRAINT [FK_UzytkownikPasswordReminder];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -27,6 +30,9 @@ IF OBJECT_ID(N'[dbo].[PrzepisSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[UzytkownikSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UzytkownikSet];
+GO
+IF OBJECT_ID(N'[dbo].[PasswordReminderSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PasswordReminderSet];
 GO
 
 -- --------------------------------------------------
@@ -60,6 +66,15 @@ CREATE TABLE [dbo].[UzytkownikSet] (
 );
 GO
 
+-- Creating table 'PasswordReminderSet'
+CREATE TABLE [dbo].[PasswordReminderSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [hash_string] nvarchar(max)  NOT NULL,
+    [creation_date] nvarchar(max)  NOT NULL,
+    [UzytkownikId] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -76,9 +91,30 @@ ADD CONSTRAINT [PK_UzytkownikSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'PasswordReminderSet'
+ALTER TABLE [dbo].[PasswordReminderSet]
+ADD CONSTRAINT [PK_PasswordReminderSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
+
+-- Creating foreign key on [UzytkownikId] in table 'PasswordReminderSet'
+ALTER TABLE [dbo].[PasswordReminderSet]
+ADD CONSTRAINT [FK_UzytkownikPasswordReminder]
+    FOREIGN KEY ([UzytkownikId])
+    REFERENCES [dbo].[UzytkownikSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UzytkownikPasswordReminder'
+CREATE INDEX [IX_FK_UzytkownikPasswordReminder]
+ON [dbo].[PasswordReminderSet]
+    ([UzytkownikId]);
+GO
 
 -- --------------------------------------------------
 -- Script has ended

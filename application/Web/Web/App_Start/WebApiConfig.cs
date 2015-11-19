@@ -9,7 +9,7 @@ namespace Web
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            // TODO: Add any additional configuration code.
 
             // Web API routes
             config.MapHttpAttributeRoutes();
