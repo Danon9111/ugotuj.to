@@ -166,6 +166,7 @@
     <Compile Include="Controllers\PasswordRemindersController.cs" />
     <Compile Include="Controllers\RandomRecipeController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
+    <Compile Include="Controllers\RecipesController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\SearchRecipeController.cs" />
     <Compile Include="Global.asax.cs">

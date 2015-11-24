@@ -59,7 +59,7 @@ namespace Web.Controllers
         {
             byte[] randBuffer = new byte[length];
             RandomNumberGenerator.Create().GetBytes(randBuffer);
-            return System.Convert.ToBase64String(randBuffer).Remove(length);
+            return System.Convert.ToBase64String(randBuffer).Remove(length).Replace('+','F');
         }
 
         public class User
