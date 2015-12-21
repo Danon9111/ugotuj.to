@@ -7,26 +7,26 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 using Web.Models;
-
 namespace Web.Controllers
 {
-    public class AuthController : ApiController
+    public class GetFavoriteRecipesController : ApiController
     {
         private KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
         [HttpPost]
-        public Boolean Post(HttpRequestMessage token)
+        public List<Favorite_Recipe> GetFavorite_RecipeSet(FavoriteRecipeHelper request)
         {
-            var txt = token.Content.ReadAsStringAsync().Result;
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
 
-            var users = from element in db.UserSet
-                        where element.Token.Equals(txt)
-                        select element;
+            var selectedUser = db.UserSet.Where(x => x.Token.Equals(request.token));
 
-            if (users.Count() == 1) return true;
-            return false;
+            if (!selectedUser.Any()) return null;
+
+            var userId = selectedUser.First().Id;
+
+            return db.Favorite_RecipeSet.Where(y => y.UserId == userId).ToList();
         }
 
         protected override void Dispose(bool disposing)

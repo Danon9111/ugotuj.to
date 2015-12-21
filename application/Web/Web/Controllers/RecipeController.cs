@@ -12,27 +12,28 @@ namespace Web.Controllers
     {
         KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
-        public Recipe Get(int id)
+        public RecipeHelper Get(int id)
         {
-            var element = from usr in db.PrzepisSet
+            var element = from usr in db.RecipeSet
                           where usr.Id == id
                           select usr;
 
-            if (element.Count() == 0) return new Recipe("This recipe not exist!");
+            if (element.Count() == 0) return new RecipeHelper("Taki przepis nie istnieje!");
 
             var recipeFromDb = element.ToList()[0];
 
-            Recipe recipe = new Recipe();
-            recipe.category = recipeFromDb.kategoria;
-            recipe.creationDate = recipeFromDb.data_utworzenia.Value;
-            recipe.description = recipeFromDb.opis;
-            recipe.difficulty = (int)recipeFromDb.trudnosc;
-            recipe.preparation = recipeFromDb.przygotowanie;
-            recipe.ingredients = recipeFromDb.skladniki;
-            recipe.name = recipeFromDb.nazwa;
-            recipe.photo = recipeFromDb.zdjecie;
-            recipe.readyIn = recipeFromDb.czas_wykonania;
-            recipe.video = recipeFromDb.film;
+            RecipeHelper recipe = new RecipeHelper();
+            recipe.category = recipeFromDb.Category;
+            recipe.creationDate = recipeFromDb.Creation_Date.Value;
+            recipe.description = recipeFromDb.Description;
+            recipe.difficulty = (int)recipeFromDb.Dificult;
+            recipe.preparation = recipeFromDb.Preparation;
+            recipe.ingredients = recipeFromDb.Ingredients;
+            recipe.name = recipeFromDb.Name;
+            recipe.photo = recipeFromDb.Photo;
+            recipe.readyIn = recipeFromDb.Preparation_Time;
+            recipe.video = recipeFromDb.Video;
+            recipe.user = recipeFromDb.User.Login;
 
             return recipe;
         }

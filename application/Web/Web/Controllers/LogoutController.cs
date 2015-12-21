@@ -14,16 +14,16 @@ namespace Web.Controllers
 
         public String Get(String token)
         {
-            var element = from usr in db.UzytkownikSet
-                          where usr.token == token
+            var element = from usr in db.UserSet
+                          where usr.Token.Equals(token)
                           select usr;
 
-            if (element.Count() == 0) return "Incorrect token!";
+            if (element.Count() == 0) return "Nieprawidłowy token!";
 
-            element.ToList()[0].token = null;
+            element.ToList()[0].Token = null;
 
             db.SaveChanges();
-            return "Logout";
+            return "Wylogowano!";
         }
 
         public String Post([FromBody]String token)
@@ -32,12 +32,12 @@ namespace Web.Controllers
                           where usr.token.Equals(token)
                           select usr;
 
-            if (element.Count() == 0) return "Incorrect token!";
+            if (element.Count() == 0) return "Nieprawidłowy token!";
 
             element.ToList()[0].token = null;
 
             db.SaveChanges();
-            return "Logout";
+            return "Wylogowano!";
         }
     }
 }

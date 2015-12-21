@@ -11,56 +11,43 @@ namespace Web.Controllers
     public class AddController : ApiController
     {
         // POST api/values
-        public String Post([FromBody]Recipe recipe)
+        public String Post([FromBody]RecipeHelper recipe)
         {
             KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
             // Security check
-            var element = from usr in db.UzytkownikSet
-                          where usr.token == recipe.token
+            var element = from usr in db.UserSet
+                          where usr.Token == recipe.token
                           select usr;
 
-            if (element.Count() == 0) return "Incorrect token!";
+            if (element.Count() == 0) return "Token nieprawidłowy!";
 
-            Przepis przepis = new Przepis();
-            przepis.nazwa = recipe.name;
-            przepis.opis = recipe.description;
-            przepis.kategoria = recipe.category;
-            przepis.przygotowanie = recipe.preparation;
-            przepis.skladniki = recipe.ingredients;
-            przepis.trudnosc = recipe.difficulty;
-            przepis.zdjecie = recipe.photo;
-            przepis.czas_wykonania = recipe.readyIn;
-            przepis.data_utworzenia = DateTime.Now;
-            przepis.film = recipe.video;
+            Recipe przepis = new Recipe();
+            przepis.Name = recipe.name;
+            przepis.Description = recipe.description;
+            przepis.Category = recipe.category;
+            przepis.Preparation = recipe.preparation;
+            przepis.Ingredients = recipe.ingredients;
+            przepis.Dificult = recipe.difficulty;
+            przepis.Photo = recipe.photo;
+            przepis.Preparation_Time = recipe.readyIn;
+            przepis.Creation_Date = DateTime.Now;
+            przepis.Video = recipe.video;
+            przepis.UserId = element.First().Id;
 
-            if (przepis.nazwa.Length == 0) return "Incorrect name!";
-            if (przepis.opis.Length == 0) return "Incorrect description!";
-            if (przepis.kategoria.Length == 0) return "Incorrect category!";
-            if (przepis.przygotowanie.Length == 0) return "Incorrect preparation!";
-            if (przepis.skladniki.Length == 0) return "Incorrect ingredients!";
-            if (przepis.trudnosc == null) return "Incorrect difficulty!";
-            if (przepis.czas_wykonania <= 0) return "Incorrect readyIn time!";
+            if (przepis.Name.Length == 0) return "Nazwa nie może być pusta!";
+            if (przepis.Description.Length == 0) return "Opis nie może być pusty!";
+            if (przepis.Category.Length == 0) return "Kategoria nie może być pusta!";
+            if (przepis.Preparation.Length == 0) return "Przepis musi zawierać jakikolwiek tekst!";
+            if (przepis.Ingredients.Length == 0) return "Przepis musi zawierać składniki!";
+            if (przepis.Dificult == null) return "Nieprawidłowa trudność!";
+            if (przepis.Preparation_Time <= 0) return "Nieprawidłowy czas wykonania!";
 
-            db.PrzepisSet.Add(przepis);
+            db.RecipeSet.Add(przepis);
 
             db.SaveChanges();
 
-            return "Recipe was added!";
-        }
-
-        public class Recipe
-        {
-            public String token { get; set; }
-            public String name { get; set; }
-            public String description { get; set; }
-            public String preparation { get; set; }
-            public String photo { get; set; }
-            public String video { get; set; }
-            public int readyIn { get; set; }
-            public int difficulty { get; set; }
-            public String category { get; set; }
-            public String ingredients { get; set; }
+            return "Przepis został dodany!";
         }
     }
 }

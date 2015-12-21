@@ -158,9 +158,14 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AddController.cs" />
+    <Compile Include="Controllers\AddFavoriteRecipeController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
+    <Compile Include="Controllers\EditController.cs" />
+    <Compile Include="Controllers\GetFavoriteRecipesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IsFavoriteRecipeController.cs" />
+    <Compile Include="Controllers\LatestRecipeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\PasswordRemindersController.cs" />
@@ -168,9 +173,16 @@
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\RemoveController.cs" />
+    <Compile Include="Controllers\RemoveFavoriteRecipeController.cs" />
     <Compile Include="Controllers\SearchRecipeController.cs" />
+    <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FavoriteRecipeHelper.cs" />
+    <Compile Include="Models\Favorite_Recipe.cs">
+      <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KsiazkaKucharskaModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -193,7 +205,17 @@
     <Compile Include="Models\Przepis.cs">
       <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Recipe.cs" />
+    <Compile Include="Models\Recipe.cs">
+      <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RecipeHelper.cs" />
+    <Compile Include="Models\User.cs">
+      <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserHelper.cs" />
+    <Compile Include="Models\User_Photo.cs">
+      <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Uzytkownik.cs">
       <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
     </Compile>

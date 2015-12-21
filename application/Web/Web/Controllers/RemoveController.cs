@@ -12,21 +12,20 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-    public class AuthController : ApiController
+    public class RemoveController : ApiController
     {
         private KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
-
-        [HttpPost]
-        public Boolean Post(HttpRequestMessage token)
+        
+        public String PostPrzepis(RecipeHelper przepis)
         {
-            var txt = token.Content.ReadAsStringAsync().Result;
+            var user = db.UserSet.Where(x => x.Token.Equals(przepis.token));
+            if (!user.Any()) return "Niepoprawny token!";
+            var recipe = user.First().Recipe.Where(x => x.Id == przepis.id);
+            if (!recipe.Any()) return "Próbujesz usunąć przepis, który nie należy do Ciebie!";
 
-            var users = from element in db.UserSet
-                        where element.Token.Equals(txt)
-                        select element;
-
-            if (users.Count() == 1) return true;
-            return false;
+            db.RecipeSet.Remove(recipe.First());
+            db.SaveChanges();
+            return "Przepis został usunięty!";
         }
 
         protected override void Dispose(bool disposing)

@@ -18,16 +18,18 @@ namespace Web.Controllers
         private KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
         // GET: api/Recipes
-        public IQueryable<Przepis> GetRecipes()
+        public IQueryable<Recipe> GetRecipes()
         {
-            return db.PrzepisSet;
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
+            return db.RecipeSet;
         }
 
         // GET: api/Recipes/5
-        [ResponseType(typeof(Przepis))]
+        [ResponseType(typeof(Recipe))]
         public IHttpActionResult GetRecipe(int id)
         {
-            Przepis przepis = db.PrzepisSet.Find(id);
+            Recipe przepis = db.RecipeSet.Find(id);
             if (przepis == null)
             {
                 return NotFound();
@@ -41,9 +43,9 @@ namespace Web.Controllers
         public IHttpActionResult PutRecipe([FromBody]JObject recipe)
         {
             String token = recipe["token"].ToObject<String>();
-            Przepis przepis = recipe["recipe"].ToObject<Przepis>();
+            Recipe przepis = recipe["recipe"].ToObject<Recipe>();
 
-            var user = db.UzytkownikSet.Where(x => x.token.Equals(token));
+            var user = db.UserSet.Where(x => x.Token.Equals(token));
 
             if (!ModelState.IsValid || !user.Any())
             {
@@ -57,11 +59,11 @@ namespace Web.Controllers
         }
 
         // POST: api/Recipes
-        [ResponseType(typeof(Przepis))]
+        [ResponseType(typeof(Recipe))]
         public IHttpActionResult PostRecipe([FromBody]JObject recipe)
         {
             String token = recipe["token"].ToObject<String>();
-            Przepis przepis = recipe["recipe"].ToObject<Przepis>();
+            Recipe przepis = recipe["recipe"].ToObject<Recipe>();
 
             var user = db.UzytkownikSet.Where(x => x.token.Equals(token));
 
@@ -70,7 +72,7 @@ namespace Web.Controllers
                 return StatusCode(HttpStatusCode.Unauthorized);
             }
 
-            db.PrzepisSet.Add(przepis);
+            db.RecipeSet.Add(przepis);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = przepis.Id }, przepis);
@@ -87,13 +89,13 @@ namespace Web.Controllers
                 return StatusCode(HttpStatusCode.Unauthorized);
             }
 
-            Przepis przepis = db.PrzepisSet.Find(id);
+            Recipe przepis = db.RecipeSet.Find(id);
             if (przepis == null)
             {
                 return NotFound();
             }
 
-            db.PrzepisSet.Remove(przepis);
+            db.RecipeSet.Remove(przepis);
             db.SaveChanges();
 
             return Ok(przepis);
@@ -110,7 +112,7 @@ namespace Web.Controllers
 
         private bool PrzepisExists(int id)
         {
-            return db.PrzepisSet.Count(e => e.Id == id) > 0;
+            return db.RecipeSet.Count(e => e.Id == id) > 0;
         }
     }
 }

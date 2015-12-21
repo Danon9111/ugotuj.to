@@ -12,13 +12,13 @@ namespace Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PasswordReminder
+    public partial class Favorite_Recipe
     {
         public int Id { get; set; }
-        public string hash_string { get; set; }
-        public string creation_date { get; set; }
-        public int UzytkownikId { get; set; }
+        public int UserId { get; set; }
+        public int RecipeId { get; set; }
     
-        public virtual Uzytkownik Uzytkownik { get; set; }
+        public virtual User User { private get; set; }
+        public virtual Recipe Recipe { private get; set; }
     }
 }

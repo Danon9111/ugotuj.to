@@ -14,9 +14,9 @@ namespace Web.Controllers
         KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
         // GET api/values
-        public User Get()
+        public UserHelper Get()
         {
-            User user = new User();
+            UserHelper user = new UserHelper();
             user.login = "test_login";
             user.password = "test_password";
             user.email = "test_email";
@@ -24,7 +24,7 @@ namespace Web.Controllers
         }
         
         // POST api/values
-        public String Post([FromBody]User user)
+        public String Post([FromBody]UserHelper user)
         {
             // e-mail address, login, password, confirm password
             String login = user.login;
@@ -32,12 +32,12 @@ namespace Web.Controllers
             String email = user.email;
 
             // Security check
-            var element = from usr in db.UzytkownikSet
-                          where usr.login == login
+            var element = from usr in db.UserSet
+                          where usr.Login == login
                           select usr;
 
-            var element2 = from usr in db.UzytkownikSet
-                          where usr.email == email
+            var element2 = from usr in db.UserSet
+                          where usr.Email == email
                           select usr;
 
             if (element.Count() != 0) return "Użytkownik o takim loginie istnieje!";
@@ -45,13 +45,13 @@ namespace Web.Controllers
             if (password.Length < 5) return "Zbyt krótkie hasło!";
             if (!IsValid(email)) return "Podane hasło jest niepoprawne!";
 
-            Uzytkownik uzytkownik = new Uzytkownik();
-            uzytkownik.login = login;
-            uzytkownik.nazwa = login;
-            uzytkownik.haslo = password;
-            uzytkownik.email = email;
+            User uzytkownik = new Models.User();
+            uzytkownik.Login = login;
+            uzytkownik.Name = login;
+            uzytkownik.Password = password;
+            uzytkownik.Email = email;
             
-            db.UzytkownikSet.Add(uzytkownik);
+            db.UserSet.Add(uzytkownik);
 
             db.SaveChanges();
 
@@ -70,13 +70,6 @@ namespace Web.Controllers
             {
                 return false;
             }
-        }
-
-        public class User
-        {
-            public String login { get; set; }
-            public String password { get; set; }
-            public String email { get; set; }
         }
     }
 }

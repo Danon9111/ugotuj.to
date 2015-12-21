@@ -5,10 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="fb6c81f8c48040df86b5b873d22efb45" Name="Diagram1" >
-        <EntityTypeShape EntityType="KsiazkaKucharskaModel.Przepis" Width="1.5" PointX="2.625" PointY="1" />
-        <EntityTypeShape EntityType="KsiazkaKucharskaModel.Uzytkownik" Width="1.5" PointX="4.375" PointY="1" />
-        <EntityTypeShape EntityType="KsiazkaKucharskaModel.PasswordReminder" Width="1.5" PointX="6.125" PointY="1" />
+        <EntityTypeShape EntityType="KsiazkaKucharskaModel.Przepis" Width="1.5" PointX="2.625" PointY="1.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="KsiazkaKucharskaModel.Uzytkownik" Width="1.5" PointX="4.375" PointY="1.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="KsiazkaKucharskaModel.PasswordReminder" Width="1.5" PointX="6.125" PointY="1.125" IsExpanded="false" />
         <AssociationConnector Association="KsiazkaKucharskaModel.UzytkownikPasswordReminder" />
+        <AssociationConnector Association="KsiazkaKucharskaModel.UzytkownikPrzepis" />
+        <EntityTypeShape EntityType="KsiazkaKucharskaModel.Recipe" Width="1.5" PointX="7.875" PointY="1.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="KsiazkaKucharskaModel.User" PointX="7.875" PointY="1.125" Width="1.5" IsExpanded="false" />
+        <AssociationConnector Association="KsiazkaKucharskaModel.UserRecipe" />
+        <EntityTypeShape EntityType="KsiazkaKucharskaModel.User_Photo" Width="1.5" PointX="7.875" PointY="0.5" IsExpanded="false" />
+        <AssociationConnector Association="KsiazkaKucharskaModel.UserUser_Photo" />
+        <EntityTypeShape EntityType="KsiazkaKucharskaModel.Favorite_Recipe" Width="1.5" PointX="9.625" PointY="1.125" IsExpanded="false" />
+        <AssociationConnector Association="KsiazkaKucharskaModel.UserFavorite_Recipe" />
+        <AssociationConnector Association="KsiazkaKucharskaModel.Favorite_RecipeRecipe" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

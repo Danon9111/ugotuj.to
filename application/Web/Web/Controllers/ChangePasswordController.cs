@@ -12,7 +12,7 @@ namespace Web.Controllers
     {
         KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
-        public String Post([FromBody]User user)
+        public String Post([FromBody]UserHelper user)
         {
             // e-mail address, login, password, confirm password
             String token = user.token;
@@ -20,26 +20,18 @@ namespace Web.Controllers
             String newPassword = user.newPassword;
 
             // Security check
-            var element = from usr in db.UzytkownikSet
-                          where usr.token == token && usr.haslo == oldPassword
+            var element = from usr in db.UserSet
+                          where usr.Token.Equals(token) && usr.Password.Equals(oldPassword)
                           select usr;
 
-            if (element.Count() == 0) return "Incorrect token or old password!";
-            if (newPassword.Length < 5) return "Incorect new password!";
+            if (element.Count() == 0) return "Nieprawidłowy token!";
+            if (newPassword.Length < 5) return "Nowe hasło jest nieprawidłowe!";
 
             var userAccount = element.ToList()[0];
-            userAccount.haslo = newPassword;
+            userAccount.Password = newPassword;
             db.SaveChanges();
 
-            return "Password changed!";
+            return "Hasło zostało zmienione!";
         }
-
-        public class User
-        {
-            public String token { get; set; }
-            public String oldPassword { get; set; }
-            public String newPassword { get; set; }
-        }
-
     }
 }

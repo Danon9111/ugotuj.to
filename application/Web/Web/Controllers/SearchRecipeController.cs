@@ -12,32 +12,32 @@ namespace Web.Controllers
     {
         KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
-        public List<Recipe> Get(String query)
+        public List<RecipeHelper> Get(String query)
         {
-            var recipes = from recipe in db.PrzepisSet
-                          where recipe.nazwa.Contains(query)
+            var recipes = from recipe in db.RecipeSet
+                          where recipe.Name.Contains(query)
                           select recipe;
 
             if (recipes.Count() == 0) return null;
 
-            recipes = recipes.Take(10);
+            recipes = recipes.Take(5);
 
-            List<Recipe> recipeList = new List<Recipe>();
+            List<RecipeHelper> recipeList = new List<RecipeHelper>();
 
             foreach (var element in recipes)
             {
-                Recipe recipe = new Recipe();
+                RecipeHelper recipe = new RecipeHelper();
                 recipe.id = element.Id;
-                recipe.category = element.kategoria;
-                recipe.creationDate = element.data_utworzenia.Value;
-                recipe.description = element.opis;
-                recipe.difficulty = (int)element.trudnosc;
-                recipe.preparation = element.przygotowanie;
-                recipe.ingredients = element.skladniki;
-                recipe.name = element.nazwa;
-                recipe.photo = element.zdjecie;
-                recipe.readyIn = element.czas_wykonania;
-                recipe.video = element.film;
+                recipe.category = element.Category;
+                recipe.creationDate = element.Creation_Date.Value;
+                recipe.description = element.Description;
+                recipe.difficulty = (int)element.Dificult;
+                recipe.preparation = element.Preparation;
+                recipe.ingredients = element.Ingredients;
+                recipe.name = element.Name;
+                recipe.photo = element.Photo;
+                recipe.readyIn = element.Preparation_Time;
+                recipe.video = element.Video;
                 recipeList.Add(recipe);
             }
             

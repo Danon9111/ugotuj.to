@@ -12,25 +12,29 @@ namespace Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Uzytkownik
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Uzytkownik()
+        public User()
         {
-            this.PasswordReminder = new HashSet<PasswordReminder>();
-            this.Przepis = new HashSet<Przepis>();
+            this.Recipe = new HashSet<Recipe>();
+            this.User_Photo = new HashSet<User_Photo>();
+            this.Favorite_Recipe = new HashSet<Favorite_Recipe>();
         }
     
         public int Id { get; set; }
-        public string nazwa { get; set; }
-        public string login { get; set; }
-        public string haslo { get; set; }
-        public string email { get; set; }
-        public string token { get; set; }
+        public string Name { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string Salt { get; set; }
+        public string Email { get; set; }
+        public string Token { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PasswordReminder> PasswordReminder { get; set; }
+        public virtual ICollection<Recipe> Recipe { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Przepis> Przepis { get; set; }
+        public virtual ICollection<User_Photo> User_Photo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Favorite_Recipe> Favorite_Recipe { get; set; }
     }
 }

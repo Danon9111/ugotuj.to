@@ -12,21 +12,20 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-    public class AuthController : ApiController
+    public class IsFavoriteRecipeController : ApiController
     {
         private KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
         [HttpPost]
-        public Boolean Post(HttpRequestMessage token)
+        public Boolean GetFavorite_RecipeSet(FavoriteRecipeHelper request)
         {
-            var txt = token.Content.ReadAsStringAsync().Result;
+            var selectedUser = db.UserSet.Where(x => x.Token.Equals(request.token));
 
-            var users = from element in db.UserSet
-                        where element.Token.Equals(txt)
-                        select element;
+            if (!selectedUser.Any()) return false;
 
-            if (users.Count() == 1) return true;
-            return false;
+            var favoriteRecipe = selectedUser.First().Favorite_Recipe.Where(x => x.RecipeId == request.recipeId);
+
+            return favoriteRecipe.Any();
         }
 
         protected override void Dispose(bool disposing)

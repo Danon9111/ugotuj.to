@@ -14,18 +14,18 @@ namespace Web.Controllers
         KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
         // GET api/values
-        public Response Get(String login, String password)
+        public UserHelper Get(String login, String password)
         {
             // Security check
-            var element = from usr in db.UzytkownikSet
-                          where usr.login == login && usr.haslo == password
+            var element = from usr in db.UserSet
+                          where usr.Login.Equals(login) && usr.Password.Equals(password)
                           select usr;
 
-            if (element.Count() == 0) return new Response("Incorrect username or password!");
+            if (element.Count() == 0) return new UserHelper("Nieprawidłowy login lub hasło!");
 
-            Response response = new Response();
+            UserHelper response = new UserHelper();
             response.token = GenRandString(64);
-            element.ToList()[0].token = response.token;
+            element.ToList()[0].Token = response.token;
 
             db.SaveChanges();
 
@@ -33,22 +33,22 @@ namespace Web.Controllers
         }
 
         // POST api/values
-        public Response Post([FromBody]User user)
+        public UserHelper Post([FromBody]UserHelper user)
         {
             // e-mail address, login, password, confirm password
             String login = user.login;
             String password = user.password;
 
             // Security check
-            var element = from usr in db.UzytkownikSet
-                          where usr.login == login && usr.haslo == password
+            var element = from usr in db.UserSet
+                          where usr.Login.Equals(login) && usr.Password.Equals(password)
                           select usr;
 
-            if (element.Count() == 0) return new Response("Incorrect username or password!");
+            if (element.Count() == 0) return new UserHelper("Nieprawidłowy login lub hasło!");
             
-            Response response = new Response();
+            UserHelper response = new UserHelper();
             response.token = GenRandString(64);
-            element.ToList()[0].token = response.token;
+            element.ToList()[0].Token = response.token;
 
             db.SaveChanges();
 
@@ -60,26 +60,6 @@ namespace Web.Controllers
             byte[] randBuffer = new byte[length];
             RandomNumberGenerator.Create().GetBytes(randBuffer);
             return System.Convert.ToBase64String(randBuffer).Remove(length).Replace('+','F');
-        }
-
-        public class User
-        {
-            public String login { get; set; }
-            public String password { get; set; }
-        }
-
-        public class Response
-        {
-            public Response()
-            {
-            }
-            public Response(String error)
-            {
-                this.error = error;
-            }
-
-            public String error { get; set; }
-            public String token { get; set; }
         }
     }
 }
