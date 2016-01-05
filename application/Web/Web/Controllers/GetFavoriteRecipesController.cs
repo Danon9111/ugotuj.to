@@ -15,18 +15,18 @@ namespace Web.Controllers
         private KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
         [HttpPost]
-        public List<Favorite_Recipe> GetFavorite_RecipeSet(FavoriteRecipeHelper request)
+        public FavoriteRecipeHelper GetFavorite_RecipeSet(FavoriteRecipeHelper request)
         {
-            db.Configuration.LazyLoadingEnabled = false;
-            db.Configuration.ProxyCreationEnabled = false;
-
             var selectedUser = db.UserSet.Where(x => x.Token.Equals(request.token));
 
             if (!selectedUser.Any()) return null;
 
             var userId = selectedUser.First().Id;
 
-            return db.Favorite_RecipeSet.Where(y => y.UserId == userId).ToList();
+            var favoriteRecipes = db.Favorite_RecipeSet.Include(x=>x.Recipe).Where(y => y.UserId == userId).ToList();
+            FavoriteRecipeHelper favoriteRecipeHelper = new FavoriteRecipeHelper(favoriteRecipes);
+
+            return favoriteRecipeHelper;
         }
 
         protected override void Dispose(bool disposing)

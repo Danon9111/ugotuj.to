@@ -18,7 +18,7 @@ namespace Web.Models
         public int UserId { get; set; }
         public int RecipeId { get; set; }
     
-        public virtual User User { private get; set; }
-        public virtual Recipe Recipe { private get; set; }
+        public virtual User User { get; set; }
+        public virtual Recipe Recipe { get; set; }
     }
 }

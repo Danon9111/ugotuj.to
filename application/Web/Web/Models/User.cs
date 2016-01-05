@@ -20,6 +20,8 @@ namespace Web.Models
             this.Recipe = new HashSet<Recipe>();
             this.User_Photo = new HashSet<User_Photo>();
             this.Favorite_Recipe = new HashSet<Favorite_Recipe>();
+            this.Profile_Picture = new HashSet<Profile_Picture>();
+            this.PasswordReminder = new HashSet<PasswordReminder>();
         }
     
         public int Id { get; set; }
@@ -36,5 +38,9 @@ namespace Web.Models
         public virtual ICollection<User_Photo> User_Photo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Favorite_Recipe> Favorite_Recipe { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Profile_Picture> Profile_Picture { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PasswordReminder> PasswordReminder { get; set; }
     }
 }

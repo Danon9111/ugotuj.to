@@ -65,7 +65,7 @@ namespace Web.Controllers
             String token = recipe["token"].ToObject<String>();
             Recipe przepis = recipe["recipe"].ToObject<Recipe>();
 
-            var user = db.UzytkownikSet.Where(x => x.token.Equals(token));
+            var user = db.UserSet.Where(x => x.Token.Equals(token));
 
             if (!ModelState.IsValid || !user.Any())
             {
@@ -79,10 +79,10 @@ namespace Web.Controllers
         }
 
         // DELETE: api/Recipes/5
-        [ResponseType(typeof(Przepis))]
+        [ResponseType(typeof(Recipe))]
         public IHttpActionResult DeleteRecipe(int id, String token)
         {
-            var user = db.UzytkownikSet.Where(x => x.token.Equals(token));
+            var user = db.UserSet.Where(x => x.Token.Equals(token));
 
             if (!user.Any())
             {

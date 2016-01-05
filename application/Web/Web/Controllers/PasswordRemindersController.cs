@@ -21,7 +21,7 @@ namespace Web.Controllers
         // GET: api/PasswordReminders
         public bool GetNewPassword(String email)
         {
-            var element = db.UzytkownikSet.Where(x => x.email.Equals(email)).ToList();
+            var element = db.UserSet.Where(x => x.Email.Equals(email)).ToList();
             if (element.Any())
             {
                 var user = element.ElementAt(0);
@@ -37,7 +37,7 @@ namespace Web.Controllers
                     creation_date = DateTime.Now.ToString()
                 });
 
-                SendMail(user.email, hash);
+                SendMail(user.Email, hash);
                 db.SaveChanges();
                 return true;
             }
@@ -51,7 +51,7 @@ namespace Web.Controllers
             {
                 // Wysyłanie maila z nowym hasłem
                 String password = GenRandString(8);
-                element.ElementAt(0).Uzytkownik.haslo = password;
+                element.ElementAt(0).User.Password = password;
                 db.SaveChanges();
                 return password;
             }

@@ -25,12 +25,11 @@ namespace Web.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Przepis> PrzepisSet { get; set; }
-        public virtual DbSet<Uzytkownik> UzytkownikSet { get; set; }
         public virtual DbSet<PasswordReminder> PasswordReminderSet { get; set; }
         public virtual DbSet<Recipe> RecipeSet { get; set; }
         public virtual DbSet<User> UserSet { get; set; }
         public virtual DbSet<User_Photo> User_PhotoSet { get; set; }
         public virtual DbSet<Favorite_Recipe> Favorite_RecipeSet { get; set; }
+        public virtual DbSet<Profile_Picture> Profile_PictureSet { get; set; }
     }
 }

@@ -164,6 +164,7 @@
     <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\GetFavoriteRecipesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfilePhotoController.cs" />
     <Compile Include="Controllers\IsFavoriteRecipeController.cs" />
     <Compile Include="Controllers\LatestRecipeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -202,7 +203,7 @@
     <Compile Include="Models\PasswordReminder.cs">
       <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Przepis.cs">
+    <Compile Include="Models\Profile_Picture.cs">
       <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Recipe.cs">
@@ -216,9 +217,6 @@
     <Compile Include="Models\User_Photo.cs">
       <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Uzytkownik.cs">
-      <DependentUpon>KsiazkaKucharskaModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +226,11 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="html\upload.htm" />
+    <Content Include="html\upload_pliki\angular.js" />
+    <Content Include="html\upload_pliki\ng-file-upload-shim.js" />
+    <Content Include="html\upload_pliki\ng-file-upload.js" />
+    <Content Include="img\profile\index.htm" />
     <Content Include="Models\KsiazkaKucharskaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>KsiazkaKucharskaModel.Context.cs</LastGenOutput>

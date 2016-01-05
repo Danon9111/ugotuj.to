@@ -6,21 +6,12 @@
     <edmx:StorageModels>
     <Schema Namespace="KsiazkaKucharskaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="KsiazkaKucharskaModelStoreContainer">
-    <EntitySet Name="PrzepisSet" EntityType="KsiazkaKucharskaModel.Store.PrzepisSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UzytkownikSet" EntityType="KsiazkaKucharskaModel.Store.UzytkownikSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PasswordReminderSet" EntityType="KsiazkaKucharskaModel.Store.PasswordReminderSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RecipeSet" EntityType="KsiazkaKucharskaModel.Store.RecipeSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserSet" EntityType="KsiazkaKucharskaModel.Store.UserSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="User_PhotoSet" EntityType="KsiazkaKucharskaModel.Store.User_PhotoSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Favorite_RecipeSet" EntityType="KsiazkaKucharskaModel.Store.Favorite_RecipeSet" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="UzytkownikPasswordReminder" Association="KsiazkaKucharskaModel.Store.UzytkownikPasswordReminder">
-      <End Role="Uzytkownik" EntitySet="UzytkownikSet" />
-      <End Role="PasswordReminder" EntitySet="PasswordReminderSet" />
-    </AssociationSet>
-    <AssociationSet Name="UzytkownikPrzepis" Association="KsiazkaKucharskaModel.Store.UzytkownikPrzepis">
-      <End Role="Uzytkownik" EntitySet="UzytkownikSet" />
-      <End Role="Przepis" EntitySet="PrzepisSet" />
-    </AssociationSet>
+    <EntitySet Name="Profile_PictureSet" EntityType="KsiazkaKucharskaModel.Store.Profile_PictureSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserRecipe" Association="KsiazkaKucharskaModel.Store.UserRecipe">
       <End Role="User" EntitySet="UserSet" />
       <End Role="Recipe" EntitySet="RecipeSet" />
@@ -37,35 +28,15 @@
       <End Role="Favorite_Recipe" EntitySet="Favorite_RecipeSet" />
       <End Role="Recipe" EntitySet="RecipeSet" />
     </AssociationSet>
+    <AssociationSet Name="UserProfile_Picture" Association="KsiazkaKucharskaModel.Store.UserProfile_Picture">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Profile_Picture" EntitySet="Profile_PictureSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserPasswordReminder" Association="KsiazkaKucharskaModel.Store.UserPasswordReminder">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="PasswordReminder" EntitySet="PasswordReminderSet" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="PrzepisSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nazwa" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="opis" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="przygotowanie" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="zdjecie" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="film" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="data_utworzenia" Type="datetime" Nullable="true" />
-    <Property Name="czas_wykonania" Type="int" Nullable="false" />
-    <Property Name="trudnosc" Type="int" Nullable="true" />
-    <Property Name="kategoria" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="skladniki" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="UzytkownikId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="UzytkownikSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nazwa" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="login" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="haslo" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="token" Type="nvarchar(max)" Nullable="true" />
-  </EntityType>
   <EntityType Name="PasswordReminderSet">
     <Key>
       <PropertyRef Name="Id" />
@@ -73,7 +44,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="hash_string" Type="nvarchar(max)" Nullable="false" />
     <Property Name="creation_date" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="UzytkownikId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="RecipeSet">
     <Key>
@@ -120,30 +91,14 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="RecipeId" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="UzytkownikPasswordReminder">
-    <End Role="Uzytkownik" Type="KsiazkaKucharskaModel.Store.UzytkownikSet" Multiplicity="1" />
-    <End Role="PasswordReminder" Type="KsiazkaKucharskaModel.Store.PasswordReminderSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Uzytkownik">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PasswordReminder">
-        <PropertyRef Name="UzytkownikId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="UzytkownikPrzepis">
-    <End Role="Uzytkownik" Type="KsiazkaKucharskaModel.Store.UzytkownikSet" Multiplicity="1" />
-    <End Role="Przepis" Type="KsiazkaKucharskaModel.Store.PrzepisSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Uzytkownik">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Przepis">
-        <PropertyRef Name="UzytkownikId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <EntityType Name="Profile_PictureSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
   <Association Name="UserRecipe">
     <End Role="User" Type="KsiazkaKucharskaModel.Store.UserSet" Multiplicity="1" />
     <End Role="Recipe" Type="KsiazkaKucharskaModel.Store.RecipeSet" Multiplicity="*" />
@@ -192,22 +147,36 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="UserProfile_Picture">
+    <End Role="User" Type="KsiazkaKucharskaModel.Store.UserSet" Multiplicity="1" />
+    <End Role="Profile_Picture" Type="KsiazkaKucharskaModel.Store.Profile_PictureSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Profile_Picture">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserPasswordReminder">
+    <End Role="User" Type="KsiazkaKucharskaModel.Store.UserSet" Multiplicity="1" />
+    <End Role="PasswordReminder" Type="KsiazkaKucharskaModel.Store.PasswordReminderSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PasswordReminder">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="KsiazkaKucharskaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="KsiazkaKucharskaModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="PrzepisSet" EntityType="KsiazkaKucharskaModel.Przepis" />
-          <EntitySet Name="UzytkownikSet" EntityType="KsiazkaKucharskaModel.Uzytkownik" />
           <EntitySet Name="PasswordReminderSet" EntityType="KsiazkaKucharskaModel.PasswordReminder" />
-          <AssociationSet Name="UzytkownikPasswordReminder" Association="KsiazkaKucharskaModel.UzytkownikPasswordReminder">
-            <End Role="Uzytkownik" EntitySet="UzytkownikSet" />
-            <End Role="PasswordReminder" EntitySet="PasswordReminderSet" />
-          </AssociationSet>
-          <AssociationSet Name="UzytkownikPrzepis" Association="KsiazkaKucharskaModel.UzytkownikPrzepis">
-            <End Role="Uzytkownik" EntitySet="UzytkownikSet" />
-            <End Role="Przepis" EntitySet="PrzepisSet" />
-          </AssociationSet>
           <EntitySet Name="RecipeSet" EntityType="KsiazkaKucharskaModel.Recipe" />
           <EntitySet Name="UserSet" EntityType="KsiazkaKucharskaModel.User" />
           <AssociationSet Name="UserRecipe" Association="KsiazkaKucharskaModel.UserRecipe">
@@ -228,38 +197,16 @@
             <End Role="Favorite_Recipe" EntitySet="Favorite_RecipeSet" />
             <End Role="Recipe" EntitySet="RecipeSet" />
           </AssociationSet>
+          <EntitySet Name="Profile_PictureSet" EntityType="KsiazkaKucharskaModel.Profile_Picture" />
+          <AssociationSet Name="UserProfile_Picture" Association="KsiazkaKucharskaModel.UserProfile_Picture">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Profile_Picture" EntitySet="Profile_PictureSet" />
+          </AssociationSet>
+          <AssociationSet Name="UserPasswordReminder" Association="KsiazkaKucharskaModel.UserPasswordReminder">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="PasswordReminder" EntitySet="PasswordReminderSet" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Przepis">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nazwa" Type="String" Nullable="false" />
-          <Property Name="opis" Type="String" Nullable="false" />
-          <Property Name="przygotowanie" Type="String" Nullable="false" />
-          <Property Name="zdjecie" Type="String" Nullable="true" />
-          <Property Name="film" Type="String" Nullable="true" />
-          <Property Name="data_utworzenia" Type="DateTime" Nullable="true" />
-          <Property Name="czas_wykonania" Type="Int32" Nullable="false" />
-          <Property Name="trudnosc" Type="Int32" Nullable="true" />
-          <Property Name="kategoria" Type="String" Nullable="false" />
-          <Property Name="skladniki" Type="String" Nullable="false" />
-          <NavigationProperty Name="Uzytkownik" Relationship="KsiazkaKucharskaModel.UzytkownikPrzepis" FromRole="Przepis" ToRole="Uzytkownik" cg:GetterAccess="Public" />
-          <Property Name="UzytkownikId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Uzytkownik">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nazwa" Type="String" Nullable="true" />
-          <Property Name="login" Type="String" Nullable="false" />
-          <Property Name="haslo" Type="String" Nullable="false" />
-          <Property Name="email" Type="String" Nullable="false" />
-          <Property Name="token" Type="String" Nullable="true" />
-          <NavigationProperty Name="PasswordReminder" Relationship="KsiazkaKucharskaModel.UzytkownikPasswordReminder" FromRole="Uzytkownik" ToRole="PasswordReminder" cg:GetterAccess="Public" />
-          <NavigationProperty Name="Przepis" Relationship="KsiazkaKucharskaModel.UzytkownikPrzepis" FromRole="Uzytkownik" ToRole="Przepis" cg:GetterAccess="Public" />
-        </EntityType>
         <EntityType Name="PasswordReminder">
           <Key>
             <PropertyRef Name="Id" />
@@ -267,33 +214,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="hash_string" Type="String" Nullable="false" />
           <Property Name="creation_date" Type="String" Nullable="false" />
-          <NavigationProperty Name="Uzytkownik" Relationship="KsiazkaKucharskaModel.UzytkownikPasswordReminder" FromRole="PasswordReminder" ToRole="Uzytkownik" />
-          <Property Name="UzytkownikId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="KsiazkaKucharskaModel.UserPasswordReminder" FromRole="PasswordReminder" ToRole="User" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="UzytkownikPasswordReminder">
-          <End Type="KsiazkaKucharskaModel.Uzytkownik" Role="Uzytkownik" Multiplicity="1" />
-          <End Type="KsiazkaKucharskaModel.PasswordReminder" Role="PasswordReminder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Uzytkownik">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PasswordReminder">
-              <PropertyRef Name="UzytkownikId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="UzytkownikPrzepis">
-          <End Type="KsiazkaKucharskaModel.Uzytkownik" Role="Uzytkownik" Multiplicity="1" />
-          <End Type="KsiazkaKucharskaModel.Przepis" Role="Przepis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Uzytkownik">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Przepis">
-              <PropertyRef Name="UzytkownikId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Recipe">
           <Key>
             <PropertyRef Name="Id" />
@@ -327,6 +250,8 @@
           <NavigationProperty Name="Recipe" Relationship="KsiazkaKucharskaModel.UserRecipe" FromRole="User" ToRole="Recipe" />
           <NavigationProperty Name="User_Photo" Relationship="KsiazkaKucharskaModel.UserUser_Photo" FromRole="User" ToRole="User_Photo" />
           <NavigationProperty Name="Favorite_Recipe" Relationship="KsiazkaKucharskaModel.UserFavorite_Recipe" FromRole="User" ToRole="Favorite_Recipe" />
+          <NavigationProperty Name="Profile_Picture" Relationship="KsiazkaKucharskaModel.UserProfile_Picture" FromRole="User" ToRole="Profile_Picture" />
+          <NavigationProperty Name="PasswordReminder" Relationship="KsiazkaKucharskaModel.UserPasswordReminder" FromRole="User" ToRole="PasswordReminder" />
         </EntityType>
         <Association Name="UserRecipe">
           <End Type="KsiazkaKucharskaModel.User" Role="User" Multiplicity="1" />
@@ -366,9 +291,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="User" Relationship="KsiazkaKucharskaModel.UserFavorite_Recipe" FromRole="Favorite_Recipe" ToRole="User" cg:GetterAccess="Private" />
+          <NavigationProperty Name="User" Relationship="KsiazkaKucharskaModel.UserFavorite_Recipe" FromRole="Favorite_Recipe" ToRole="User" cg:GetterAccess="Public" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Recipe" Relationship="KsiazkaKucharskaModel.Favorite_RecipeRecipe" FromRole="Favorite_Recipe" ToRole="Recipe" cg:GetterAccess="Private" />
+          <NavigationProperty Name="Recipe" Relationship="KsiazkaKucharskaModel.Favorite_RecipeRecipe" FromRole="Favorite_Recipe" ToRole="Recipe" cg:GetterAccess="Public" />
           <Property Name="RecipeId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="UserFavorite_Recipe">
@@ -395,49 +320,52 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Profile_Picture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="KsiazkaKucharskaModel.UserProfile_Picture" FromRole="Profile_Picture" ToRole="User" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UserProfile_Picture">
+          <End Type="KsiazkaKucharskaModel.User" Role="User" Multiplicity="1" />
+          <End Type="KsiazkaKucharskaModel.Profile_Picture" Role="Profile_Picture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Profile_Picture">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserPasswordReminder">
+          <End Type="KsiazkaKucharskaModel.User" Role="User" Multiplicity="1" />
+          <End Type="KsiazkaKucharskaModel.PasswordReminder" Role="PasswordReminder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PasswordReminder">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="KsiazkaKucharskaModelStoreContainer" CdmEntityContainer="KsiazkaKucharskaModelContainer">
-    <EntitySetMapping Name="PrzepisSet">
-      <EntityTypeMapping TypeName="IsTypeOf(KsiazkaKucharskaModel.Przepis)">
-        <MappingFragment StoreEntitySet="PrzepisSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
-          <ScalarProperty Name="opis" ColumnName="opis" />
-          <ScalarProperty Name="przygotowanie" ColumnName="przygotowanie" />
-          <ScalarProperty Name="zdjecie" ColumnName="zdjecie" />
-          <ScalarProperty Name="film" ColumnName="film" />
-          <ScalarProperty Name="data_utworzenia" ColumnName="data_utworzenia" />
-          <ScalarProperty Name="czas_wykonania" ColumnName="czas_wykonania" />
-          <ScalarProperty Name="trudnosc" ColumnName="trudnosc" />
-          <ScalarProperty Name="kategoria" ColumnName="kategoria" />
-          <ScalarProperty Name="skladniki" ColumnName="skladniki" />
-          <ScalarProperty Name="UzytkownikId" ColumnName="UzytkownikId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UzytkownikSet">
-      <EntityTypeMapping TypeName="IsTypeOf(KsiazkaKucharskaModel.Uzytkownik)">
-        <MappingFragment StoreEntitySet="UzytkownikSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="nazwa" ColumnName="nazwa" />
-          <ScalarProperty Name="login" ColumnName="login" />
-          <ScalarProperty Name="haslo" ColumnName="haslo" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="token" ColumnName="token" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PasswordReminderSet">
       <EntityTypeMapping TypeName="IsTypeOf(KsiazkaKucharskaModel.PasswordReminder)">
         <MappingFragment StoreEntitySet="PasswordReminderSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="hash_string" ColumnName="hash_string" />
           <ScalarProperty Name="creation_date" ColumnName="creation_date" />
-          <ScalarProperty Name="UzytkownikId" ColumnName="UzytkownikId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -487,6 +415,15 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="RecipeId" ColumnName="RecipeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Profile_PictureSet">
+      <EntityTypeMapping TypeName="IsTypeOf(KsiazkaKucharskaModel.Profile_Picture)">
+        <MappingFragment StoreEntitySet="Profile_PictureSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

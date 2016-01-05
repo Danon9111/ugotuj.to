@@ -12,11 +12,10 @@ namespace Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PasswordReminder
+    public partial class Profile_Picture
     {
         public int Id { get; set; }
-        public string hash_string { get; set; }
-        public string creation_date { get; set; }
+        public string Path { get; set; }
         public int UserId { get; set; }
     
         public virtual User User { get; set; }

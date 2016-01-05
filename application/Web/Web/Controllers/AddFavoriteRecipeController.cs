@@ -23,7 +23,7 @@ namespace Web.Controllers
             if (!user.Any()) return false;
 
             // jeżeli jest już ulubiony dla tego użytkownika, to false
-            var userFavorite = db.Favorite_RecipeSet.Where(x => x.RecipeId == request.recipeId);
+            var userFavorite = user.First().Favorite_Recipe.Where(x => x.RecipeId == request.recipeId);
             if (userFavorite.Any()) return false;
 
             // jeżeli nie ma takiego przepisu
@@ -32,7 +32,7 @@ namespace Web.Controllers
 
             db.Favorite_RecipeSet.Add(new Favorite_Recipe()
             {
-                RecipeId = request.recipeId,
+                RecipeId = request.recipeId.Value,
                 UserId = user.First().Id
             });
             

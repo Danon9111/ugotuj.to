@@ -24,7 +24,7 @@ namespace Web.Controllers
             if (!recipe.Any()) return "Próbujesz edytować przepis, który nie należy do Ciebie!";
             var recipeToEdit = recipe.First();
 
-            recipeToEdit.Preparation_Time = przepis.readyIn;
+            recipeToEdit.Preparation_Time = przepis.readyIn.Value;
             recipeToEdit.Creation_Date = DateTime.Now;
             recipeToEdit.Video = przepis.video;
             recipeToEdit.Category = przepis.category;

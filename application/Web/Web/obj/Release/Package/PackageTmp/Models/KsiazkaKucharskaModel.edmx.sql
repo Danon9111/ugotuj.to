@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/20/2015 21:09:52
+-- Date Created: 01/05/2016 13:46:52
 -- Generated from EDMX file: C:\Users\Paweł\Desktop\ugotuj.to\application\Web\Web\Models\KsiazkaKucharskaModel.edmx
 -- --------------------------------------------------
 
@@ -17,26 +17,26 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_UzytkownikPasswordReminder]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[PasswordReminderSet] DROP CONSTRAINT [FK_UzytkownikPasswordReminder];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UzytkownikPrzepis]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[PrzepisSet] DROP CONSTRAINT [FK_UzytkownikPrzepis];
-GO
 IF OBJECT_ID(N'[dbo].[FK_UserRecipe]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[RecipeSet] DROP CONSTRAINT [FK_UserRecipe];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserUser_Photo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[User_PhotoSet] DROP CONSTRAINT [FK_UserUser_Photo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserFavorite_Recipe]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Favorite_RecipeSet] DROP CONSTRAINT [FK_UserFavorite_Recipe];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Favorite_RecipeRecipe]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Favorite_RecipeSet] DROP CONSTRAINT [FK_Favorite_RecipeRecipe];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserProfile_Picture]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Profile_PictureSet] DROP CONSTRAINT [FK_UserProfile_Picture];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[PrzepisSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[PrzepisSet];
-GO
-IF OBJECT_ID(N'[dbo].[UzytkownikSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UzytkownikSet];
-GO
 IF OBJECT_ID(N'[dbo].[PasswordReminderSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PasswordReminderSet];
 GO
@@ -46,45 +46,26 @@ GO
 IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserSet];
 GO
+IF OBJECT_ID(N'[dbo].[User_PhotoSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[User_PhotoSet];
+GO
+IF OBJECT_ID(N'[dbo].[Favorite_RecipeSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Favorite_RecipeSet];
+GO
+IF OBJECT_ID(N'[dbo].[Profile_PictureSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Profile_PictureSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
-
--- Creating table 'PrzepisSet'
-CREATE TABLE [dbo].[PrzepisSet] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [nazwa] nvarchar(max)  NOT NULL,
-    [opis] nvarchar(max)  NOT NULL,
-    [przygotowanie] nvarchar(max)  NOT NULL,
-    [zdjecie] nvarchar(max)  NULL,
-    [film] nvarchar(max)  NULL,
-    [data_utworzenia] datetime  NULL,
-    [czas_wykonania] int  NOT NULL,
-    [trudnosc] int  NULL,
-    [kategoria] nvarchar(max)  NOT NULL,
-    [skladniki] nvarchar(max)  NOT NULL,
-    [UzytkownikId] int  NOT NULL
-);
-GO
-
--- Creating table 'UzytkownikSet'
-CREATE TABLE [dbo].[UzytkownikSet] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [nazwa] nvarchar(max)  NULL,
-    [login] nvarchar(max)  NOT NULL,
-    [haslo] nvarchar(max)  NOT NULL,
-    [email] nvarchar(max)  NOT NULL,
-    [token] nvarchar(max)  NULL
-);
-GO
 
 -- Creating table 'PasswordReminderSet'
 CREATE TABLE [dbo].[PasswordReminderSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [hash_string] nvarchar(max)  NOT NULL,
     [creation_date] nvarchar(max)  NOT NULL,
-    [UzytkownikId] int  NOT NULL
+    [UserId] int  NOT NULL
 );
 GO
 
@@ -133,21 +114,17 @@ CREATE TABLE [dbo].[Favorite_RecipeSet] (
 );
 GO
 
+-- Creating table 'Profile_PictureSet'
+CREATE TABLE [dbo].[Profile_PictureSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Path] nvarchar(max)  NOT NULL,
+    [UserId] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
-
--- Creating primary key on [Id] in table 'PrzepisSet'
-ALTER TABLE [dbo].[PrzepisSet]
-ADD CONSTRAINT [PK_PrzepisSet]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'UzytkownikSet'
-ALTER TABLE [dbo].[UzytkownikSet]
-ADD CONSTRAINT [PK_UzytkownikSet]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
 
 -- Creating primary key on [Id] in table 'PasswordReminderSet'
 ALTER TABLE [dbo].[PasswordReminderSet]
@@ -179,39 +156,15 @@ ADD CONSTRAINT [PK_Favorite_RecipeSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'Profile_PictureSet'
+ALTER TABLE [dbo].[Profile_PictureSet]
+ADD CONSTRAINT [PK_Profile_PictureSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [UzytkownikId] in table 'PasswordReminderSet'
-ALTER TABLE [dbo].[PasswordReminderSet]
-ADD CONSTRAINT [FK_UzytkownikPasswordReminder]
-    FOREIGN KEY ([UzytkownikId])
-    REFERENCES [dbo].[UzytkownikSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UzytkownikPasswordReminder'
-CREATE INDEX [IX_FK_UzytkownikPasswordReminder]
-ON [dbo].[PasswordReminderSet]
-    ([UzytkownikId]);
-GO
-
--- Creating foreign key on [UzytkownikId] in table 'PrzepisSet'
-ALTER TABLE [dbo].[PrzepisSet]
-ADD CONSTRAINT [FK_UzytkownikPrzepis]
-    FOREIGN KEY ([UzytkownikId])
-    REFERENCES [dbo].[UzytkownikSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UzytkownikPrzepis'
-CREATE INDEX [IX_FK_UzytkownikPrzepis]
-ON [dbo].[PrzepisSet]
-    ([UzytkownikId]);
-GO
 
 -- Creating foreign key on [UserId] in table 'RecipeSet'
 ALTER TABLE [dbo].[RecipeSet]
@@ -220,7 +173,6 @@ ADD CONSTRAINT [FK_UserRecipe]
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserRecipe'
 CREATE INDEX [IX_FK_UserRecipe]
@@ -235,7 +187,6 @@ ADD CONSTRAINT [FK_UserUser_Photo]
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserUser_Photo'
 CREATE INDEX [IX_FK_UserUser_Photo]
@@ -250,7 +201,6 @@ ADD CONSTRAINT [FK_UserFavorite_Recipe]
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserFavorite_Recipe'
 CREATE INDEX [IX_FK_UserFavorite_Recipe]
@@ -265,12 +215,39 @@ ADD CONSTRAINT [FK_Favorite_RecipeRecipe]
     REFERENCES [dbo].[RecipeSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_Favorite_RecipeRecipe'
 CREATE INDEX [IX_FK_Favorite_RecipeRecipe]
 ON [dbo].[Favorite_RecipeSet]
     ([RecipeId]);
+GO
+
+-- Creating foreign key on [UserId] in table 'Profile_PictureSet'
+ALTER TABLE [dbo].[Profile_PictureSet]
+ADD CONSTRAINT [FK_UserProfile_Picture]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[UserSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserProfile_Picture'
+CREATE INDEX [IX_FK_UserProfile_Picture]
+ON [dbo].[Profile_PictureSet]
+    ([UserId]);
+GO
+
+-- Creating foreign key on [UserId] in table 'PasswordReminderSet'
+ALTER TABLE [dbo].[PasswordReminderSet]
+ADD CONSTRAINT [FK_UserPasswordReminder]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[UserSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserPasswordReminder'
+CREATE INDEX [IX_FK_UserPasswordReminder]
+ON [dbo].[PasswordReminderSet]
+    ([UserId]);
 GO
 
 -- --------------------------------------------------

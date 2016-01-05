@@ -37,5 +37,23 @@ namespace Web.Controllers
 
             return recipe;
         }
+
+        [HttpPost]
+        public RecipeHelper Post(RecipeHelper request)
+        {
+            var recipes = db.RecipeSet.Where(x => x.Id == request.id);
+
+            if (!recipes.Any()) return new RecipeHelper("Taki przepis nie istnieje!");
+
+            var recipeFromDb = recipes.First();
+
+            RecipeHelper recipe = new RecipeHelper(recipeFromDb);
+            if (request.token.Any())
+            {
+                recipe.favorite = recipeFromDb.Favorite_Recipe.Where(x => x.User.Token.Equals(request.token)).Any();
+            }
+
+            return recipe;
+        }
     }
 }

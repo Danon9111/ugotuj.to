@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <script type="text/javascript" src="upload_pliki/dummy.js"></script>
+    <link rel="stylesheet" type="text/css" href="upload_pliki/result-light.css">
+      <script type="text/javascript" src="upload_pliki/angular.js"></script>
+      <script type="text/javascript" src="upload_pliki/ng-file-upload-shim.js"></script>
+      <script type="text/javascript" src="upload_pliki/ng-file-upload.js"></script>
+  <style type="text/css">
+    .thumb {
+    width: 24px;
+    height: 24px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+
+form .progress {
+    line-height: 15px;
+}
+}
+
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+
+.progress div {
+    font-size: smaller;
+    background: orange;
+    width: 0;
+}
+  </style>
+
+  <title></title>
+
+  
+    
+
+
+
+
+<script type="text/javascript">//<![CDATA[
+
+//inject angular file upload directives and services.
+var app = angular.module('fileUpload', ['ngFileUpload']);
+
+app.controller('MyCtrl', ['$scope', 'Upload', '$timeout', function ($scope, Upload, $timeout) {
+    $scope.uploadFiles = function(files, errFiles) {
+        $scope.files = files;
+        $scope.errFiles = errFiles;
+        angular.forEach(files, function(file) {
+            file.upload = Upload.upload({
+                url: 'http://localhost:2140/api/imageupload?token=5QV7XwxWWNtGUtm4MsHHOfMSEjeAAbbC8RC4KSQ7DxjZRelxmU96Cvd1eL3sK/0I',
+                data: {file: file}
+            });
+
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 * 
+                                         evt.loaded / evt.total));
+            });
+        });
+    }
+}]);
+//]]> 
+
+</script>
+
+  
+</head>
+
+<body class="ng-scope ng-binding" ng-app="fileUpload" ng-controller="MyCtrl">
+  
+  <h4>Upload on file select</h4>
+  <button ngf-select="uploadFiles($files, $invalidFiles)" multiple="multiple" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+      Select Files</button>
+  <br><br>
+  Files:
+  <ul>
+    <!-- ngRepeat: f in files -->
+    <!-- ngRepeat: f in errFiles --> 
+  </ul>
+  
+
+  
+
+
+
+
+<label tabindex="-1" style="visibility: hidden; position: absolute; overflow: hidden; width: 0px; height: 0px; border: medium none; margin: 0px; padding: 0px;">upload<input ngf-select="uploadFiles($files, $invalidFiles)" multiple="multiple" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB" type="file"></label></body></html>

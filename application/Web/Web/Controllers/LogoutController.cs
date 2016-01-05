@@ -28,13 +28,13 @@ namespace Web.Controllers
 
         public String Post([FromBody]String token)
         {
-            var element = from usr in db.UzytkownikSet
-                          where usr.token.Equals(token)
+            var element = from usr in db.UserSet
+                          where usr.Token.Equals(token)
                           select usr;
 
             if (element.Count() == 0) return "Nieprawidłowy token!";
 
-            element.ToList()[0].token = null;
+            element.ToList()[0].Token = null;
 
             db.SaveChanges();
             return "Wylogowano!";

@@ -30,7 +30,7 @@ namespace Web.Controllers
             przepis.Ingredients = recipe.ingredients;
             przepis.Dificult = recipe.difficulty;
             przepis.Photo = recipe.photo;
-            przepis.Preparation_Time = recipe.readyIn;
+            przepis.Preparation_Time = recipe.readyIn.Value;
             przepis.Creation_Date = DateTime.Now;
             przepis.Video = recipe.video;
             przepis.UserId = element.First().Id;
