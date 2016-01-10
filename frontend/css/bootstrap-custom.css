@@ -53,6 +53,21 @@ h2 {
   max-height: 400px;
 }
 
+.back-to-top {
+  vertical-align: middle;
+  padding: 0px 5px 5px 5px;
+  font-size: 20px;
+  color: #bbb;
+  cursor: pointer;
+  background-color: #fff;
+  text-align: center;
+  transition: 250ms;
+}
+
+.back-to-top:hover {
+  color: #ff8217;
+  transition: 250ms;
+}
 
 footer {
   border-top: 1px solid #ddd;

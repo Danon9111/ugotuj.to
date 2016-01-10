@@ -2,7 +2,7 @@
 registerNewUserController - The controller gives the ability to register new user to the database.
 */
 
-app.controller('registerNewUserController', ['$scope', '$http', 'Notifications', '$cookies', '$rootScope', function($scope, $http, Notifications, $cookies, $rootScope) {
+app.controller('registerNewUserController', ['$scope', '$http', 'Notifications', '$cookies', '$rootScope', '$timeout', function($scope, $http, Notifications, $cookies, $rootScope, $timeout) {
 
   $rootScope.meta.title = "Rejestracja";
   $rootScope.bgImage = "img/registerImg.jpg";
@@ -49,6 +49,9 @@ app.controller('registerNewUserController', ['$scope', '$http', 'Notifications',
             $scope.registerForm.terms = false;
             $scope.checkStatus = false;
             $scope.notificationService.Add("success", data.toString());
+            setTimeout(function () {
+               window.location.href = $rootScope.basePath;
+            }, 1000);
           } else {
             $scope.notificationService.Add("alert", data.toString());
           }

@@ -20,6 +20,7 @@
     <script src="js/angular-animate.min.js"></script>
     <script src="js/ui-bootstrap-tpls-0.13.0.min.js"></script>
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
+    <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
 
     <!-- Modules -->
     <script src="js/app.js?v=2"></script>
@@ -47,6 +48,7 @@
     <script src="js/directives/cookiesInfoAlert.js"></script>
     <script src="js/directives/accountprofile.js"></script>
     <script src="js/directives/showrecipevalidate.js"></script>
+    <script src="js/directives/scrollToItem.js"></script>
 
     <!-- Text Angular WYSWIG -->
     <script src='js/textAngular/textAngular-sanitize.js'></script>
@@ -67,6 +69,7 @@
   </head>
 
   <body ng-style="bgImage != '' && {'background-image':'url('+bgImage+')'}">
+    <span id="top-element"></span>
     <nav class="navbar navbar-default navbar-fixed-top sticky" role="navigation">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -109,6 +112,9 @@
           <li><a href="">O nas</a></li>
           <li><a href="">Kontakt</a></li>
           <li><a target="_self" href="http://ugotuj.to.hostingasp.pl/Frontend/Regulamin.docx">Regulamin</a></li>
+          <li>
+              <span class="glyphicon glyphicon-circle-arrow-up back-to-top" scroll-to-item scroll-to="#top-element"" aria-hidden="true"></span>
+          </li>
         </ul>
       </div>
     </footer>
