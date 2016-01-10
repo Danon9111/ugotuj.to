@@ -17,10 +17,17 @@ namespace Web.Controllers
 
             // Security check
             var element = from usr in db.UserSet
-                          where usr.Token == recipe.token
+                          where usr.Token.Equals(recipe.token)
                           select usr;
 
             if (element.Count() == 0) return "Token nieprawidłowy!";
+            if (recipe.name.Length == 0) return "Nazwa nie może być pusta!";
+            if (recipe.description.Length == 0) return "Opis nie może być pusty!";
+            if (recipe.category.Length == 0) return "Kategoria nie może być pusta!";
+            if (recipe.preparation.Length == 0) return "Przepis musi zawierać jakikolwiek tekst!";
+            if (recipe.ingredients.Length == 0) return "Przepis musi zawierać składniki!";
+            if (recipe.difficulty == null) return "Nieprawidłowa trudność!";
+            if (recipe.preparation.Length == 0) return "Nieprawidłowy czas wykonania!";
 
             Recipe przepis = new Recipe();
             przepis.Name = recipe.name;
@@ -35,16 +42,7 @@ namespace Web.Controllers
             przepis.Video = recipe.video;
             przepis.UserId = element.First().Id;
 
-            if (przepis.Name.Length == 0) return "Nazwa nie może być pusta!";
-            if (przepis.Description.Length == 0) return "Opis nie może być pusty!";
-            if (przepis.Category.Length == 0) return "Kategoria nie może być pusta!";
-            if (przepis.Preparation.Length == 0) return "Przepis musi zawierać jakikolwiek tekst!";
-            if (przepis.Ingredients.Length == 0) return "Przepis musi zawierać składniki!";
-            if (przepis.Dificult == null) return "Nieprawidłowa trudność!";
-            if (przepis.Preparation_Time <= 0) return "Nieprawidłowy czas wykonania!";
-
             db.RecipeSet.Add(przepis);
-
             db.SaveChanges();
 
             return "Przepis został dodany!";
