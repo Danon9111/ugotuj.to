@@ -27,7 +27,7 @@ namespace Web.Controllers
             if (recipe.preparation.Length == 0) return "Przepis musi zawierać jakikolwiek tekst!";
             if (recipe.ingredients.Length == 0) return "Przepis musi zawierać składniki!";
             if (recipe.difficulty == null) return "Nieprawidłowa trudność!";
-            if (recipe.preparation.Length == 0) return "Nieprawidłowy czas wykonania!";
+            if (recipe.readyIn == null) return "Nieprawidłowy czas wykonania!";
 
             Recipe przepis = new Recipe();
             przepis.Name = recipe.name;
