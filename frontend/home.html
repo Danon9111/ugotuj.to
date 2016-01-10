@@ -1,0 +1,60 @@
+<div class="search-top container-fluid">
+  <div ng-controller="searchController">
+    <div class="container">
+      <div class="row col-lg-10 col-lg-offset-1">
+        <div class="col-lg-8 col-sm-10 col-lg-offset-2 col-sm-offset-1">
+          <img src="img/logo_search2.png" style="display: block; margin-left: auto; margin-right: auto; width: 150px;"/>
+          <input ng-model="searchWords" ng-change="updateResults()" class="form-control" type="text" id="formGroupInputLarge" placeholder="Zacznij wpisywać nazwę dania..."/>    
+          <div class="loadingWrapper">
+            <img src="img/loadlogo.gif" class="center-block" alt="Ładowanie..." ng-show="loading"/>
+          </div>
+        </div>
+        <div ng-repeat="result in searchResults">
+          <div class="well col-lg-10 col-md-8 col-xs-12 col-lg-offset-1 col-md-offset-2 col-xs-offset-0">
+            <img class="pull-left" data-ng-src="{{ result.photo }}" alt="photo"/>
+            <div class="search-result-text">
+              <a type="button" data-ng-href="recipe/{{ result.id }}" href="recipe/{{ result.id }}"><h3>{{ result.name | htmlToPlaintext | shortenText }}</h3></a>
+              <h4>{{ result.description | htmlToPlaintext | shortenText }}</h4>
+            </div>
+          </div>         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<div class="container">
+  <div class="row">
+    <div ng-controller="lastRecipesController">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <h2 class="h2-label">Ostatnio dodane</h2>
+          <div class="frame-wrapper">
+            <div class="carousel-wrapper">
+              <uib-carousel interval="myInterval">
+                <uib-slide class="uib-custom" ng-repeat="slide in slides" active="slide.active" ng-style="{'background-image':'url('+slide.photo+')'}">
+                  <a data-ng-href="recipe/{{ slide.id }}" href="recipe/{{ slide.id }}">
+                    <div class="carousel-caption">
+                      <h4>{{ slide.name | htmlToPlaintext | shortenText }}</h4>
+                      <p>{{ slide.category | htmlToPlaintext | shortenText }}</p>
+                    </div>
+                    <img ng-src="{{slide.photo}}" style="margin:auto; visibility: hidden;">
+                  </a>
+                </uib-slide>
+              </uib-carousel>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div ng-controller="recommendedRecipeController">
+      <h2 class="h2-label">Polecamy</h2>
+        <div class="recommended-recipe col-lg-6 col-md-6 col-sm-6" ng-style="{'background-image':'url('+recommendedRecipe.photo+')'}" style="display: block;">
+          <!--<img class="pull-left" data-ng-src="{{ recommendedRecipe.photo }}" alt="photo"/>-->
+          <a class="divLink" data-ng-href="recipe/{{ recommendedRecipe.id }}" href="recipe/{{ recommendedRecipe.id }}"></a>
+          <div class="search-result-text recommend-text">
+            <a type="button" data-ng-href="recipe/{{ recommendedRecipe.id }}" href="recipe/{{ recommendedRecipe.id }}"><h3>{{ recommendedRecipe.name | htmlToPlaintext | shortenText }}</h3></a>
+            <h4>{{ recommendedRecipe.description | htmlToPlaintext | shortenText  }}</h4>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

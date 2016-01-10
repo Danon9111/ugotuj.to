@@ -1,27 +1,35 @@
-<div ng-controller="registerNewUserController">
-  <fieldset name="registration">
-    <legend>Rejestracja</legend>
-    <form class="contact-form" role="form">
-      <div class="contact-form-group left">
-        <label for="login">Login</label>
-        <input ng-model="registerForm.login" id="login" type="text" placeholder="Submit login">
-      </div>
-      <div class="contact-form-group left">
-        <label for="email">E-mail</label>
-        <input ng-model="registerForm.email" id="email" type="text" placeholder="Submit e-mail">
-      </div>        
-      <div class="contact-form-group left">
-        <label for="password">Password</label>
-        <input ng-model="registerForm.password" id="password" type="password" placeholder="Submit password">
-      </div>
-      <div class="contact-form-group left">
-        <label for="passwordVerify">Confirm password field</label>
-        <input ng-model="registerForm.passwordVerify" id="passwordVerify" type="password" placeholder="Submit password">
-      </div>
-      <button ng-click="registerForm.submitTheForm()">Register</button>
-    </form>
-  </fieldset>
-  <div ng-class="msgObj.msgClass">Status: {{ msgObj.msgContent }}</div>
-  <br>
-  <img ng-class="loadingState" src="img/loading.gif"/>
+<div class="container begin-space">
+  <div class="row">
+    <div class="vertical-centered col-lg-12">
+    <div class="col-md-4 col-sm-6 col-xs-8 col-md-offset-4 col-sm-offset-3 col-xs-offset-2 logon center-vert">
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Zarejestruj się</h2>
+        <label for="login" class="sr-only">Login:</label>
+        <input ng-model="registerForm.login" class="form-control" placeholder="Login" required autofocus>
+        <label for="login" class="sr-only">Adres e-mail:</label>
+        <input ng-model="registerForm.email" class="form-control" placeholder="E-mail" required autofocus>
+        <label for="password" class="sr-only">Hasło:</label>
+        <input ng-model="registerForm.password" type="password" id="inputPassword" class="form-control" placeholder="Hasło" required>
+        <label for="password" class="sr-only">Potwierdź hasło:</label>
+        <input ng-model="registerForm.passwordVerify" type="password" id="passwordVerify" class="form-control" placeholder="Potwierdź hasło" required>
+        <input type="checkbox" ng-init="checkStatus=false" ng-model="checkStatus" ng-change="doIfChecked(checkStatus)" required>Akceptuję <a target="_self" href="http://ugotuj.to.hostingasp.pl/Frontend/Regulamin.docx">regulamin</a>.
+        <br>
+        <br>
+        <button ng-click="registerForm.submitTheForm()" class="btn btn-lg btn-primary btn-block" type="submit">Zarejestruj</button>
+        <img src="img/loading.gif" ng-show="loading"/>
+      </form>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="notification-wrapper" ng-hide="notificationService.all == ''">
+  <span ng-repeat="notification in notificationService.all | reverse">
+    <div class="notification" ng-class="notification.type" ng-click="notificationService.Remove(notification)">
+      <p>
+        <span ng-bind="notification.content"></span>
+        <span style="margin-left: 5px;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </p>
+    </div>
+  </span>
 </div>

@@ -1,76 +1,147 @@
-// create our angular app and inject ui.bootstrap
-var app = angular.module('app', ['ui.bootstrap', 'ngCookies', 'ngRoute']).factory();
+/* Main app creation. */
+var app = angular.module('app', ['ui.bootstrap', 'ngCookies', 'ngRoute', 'textAngular', 'ngAnimate', 'swxLocalStorage', 'ngSanitize']);
 
 
+/* Notifications service that handles popup alerts. */
+app.factory("Notifications", function() {
 
-app.factory("MessagePrintService", function() {
-
-  var msg = {};
-  msg.msgClass = "msg-info";
-  msg.msgContent = "";
-  msg.msgPrint = function(type, content){
-
-    var options = {
-      "info" : "msg-info",
-      "success" : "msg-success",
-      "alert" : "msg-alert"
-      };
-    msg.msgClass = options[type.toString()];
-    msg.msgContent = content.toString();
-  };
-  return {
-    msg: function() {
-      return msg;
+  var notifications = {
+    all: [],
+    Add: function(type, content) {
+      while(notifications.all.length > 2) {
+        notifications.all.splice(0, 1);
+      }
+      notifications.all.push({
+        type: type,
+        content: content
+      });
+    },
+    Remove: function(self) {
+      notifications.all.splice(notifications.all.indexOf(self), 1);
     }
   };
+
+  return notifications;
 });
 
-app.run(function($rootScope, $cookies) {
+/* Code that is running at start of the page. */
+app.run(function($rootScope, $cookies, $cookieStore) {
   $rootScope.basePath = "/Frontend/";
   $rootScope.meta = {};
   $rootScope.meta.title = "Strona główna";
   $rootScope.meta.activeLinks = {};
-  $rootScope.meta.userLinks = {"Wylogowanie" : "logout", "Dodaj przepis" : "addnewrecipe", "Zmień hasło" : "changepassword"};
-  $rootScope.meta.incognitoLinks = {"rejestracja" : "register", "logowanie" : "login"};
-  
-  if($cookies.authToken != "" && $cookies.authToken != null) {
-    $rootScope.meta.activeLinks = $rootScope.meta.userLinks;
+
+  //For menu purposes.
+  if($cookies.authToken != null && $cookies.authToken != "") {
+    $rootScope.loggedIn = true;
   } else {
-    $rootScope.meta.activeLinks = $rootScope.meta.incognitoLinks;
-  }  
+    $rootScope.loggedIn = false;
+  }
 });
 
-app.config(function($routeProvider, $locationProvider) {
+/* Service for validating if token which is in the cookies is in the database. */
+app.factory('validateAuthToken', ['$http', '$cookies', function($http, $cookies) {
+  return $http.post('http://ugotuj.to.hostingasp.pl/api/auth', $cookies.authToken)
+
+  .success(function(res) {
+    return res.toString();
+  })
+
+  .error(function(res) {
+    return res.toString();
+  });
+}]);
+
+/* Filter for reversing order of a list. */
+app.filter('reverse', function() {
+  return function(items) {
+    if(items != "" && items != null) {
+      return items.slice().reverse();
+    } else {
+      return items;
+    }
+  };
+});
+
+/* Filter for removing html tags from string. */
+app.filter('htmlToPlaintext', function() {
+  return function(text) {
+    return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+  };
+});
+
+/* Filter for shortening string and adding '...' at the end of it. */
+app.filter('shortenText', function() {
+  return function(text) {
+    return  String(text).length > 50 ? String(text).substring(0, 50) + '...' : text;
+  };
+});
+
+/* Routing. */
+app.config(function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider
-    .when('/register', {
+    .when('/home', {
+      templateUrl : 'home.html',
+      title: 'Strona główna'
+    })
+
+    .when('/', {
+      templateUrl : 'home.html',
+      title: 'Strona główna'
+    })
+
+    .when('/recipe/search', {
+      templateUrl : 'search.html',
+      controller  : 'searchController',
+      title: 'Wyszukaj przepis'
+    })
+
+    .when('/account/register', {
       templateUrl : 'register.html',
-      controller  : 'registerNewUserController'
+      controller  : 'registerNewUserController',
+      title: 'Zarejestruj się'
     })
 
-    .when('/login', {
+    .when('/account/login', {
       templateUrl : 'login.html',
-      controller  : 'loginUserController'
+      controller  : 'loginUserController',
+      title: 'Zaloguj się'
     })
 
-    .when('/logout', {
+    .when('/account/logout', {
       templateUrl : 'logout.html',
-      controller  : 'logoutUserController'
+      controller  : 'logoutUserController',
+      title: 'Wyloguj się'
     })
 
-    .when('/addnewrecipe', {
+    .when('/account/profile', {
+      templateUrl : 'account.html',
+      title: 'Mój profil'
+    })
+
+    .when('/recipe/add', {
       templateUrl : 'addnewrecipe.html',
-      controller  : 'addNewRecipeController'
-    })
-  
-    .when('/showrecipe/:recipeId', {
-      templateUrl : 'showrecipe.html',
-      controller  : 'showRecipeController'
+      controller  : 'addNewRecipeController',
+      title: 'Dodaj przepis'
     })
 
-    .when('/changepassword', {
+    .when('/recipe/:recipeId/', {
+      templateUrl : 'showrecipe.html',
+      title: 'Przepis'
+    })
+
+    .when('/account/changepassword', {
       templateUrl : 'changepassword.html',
-      controller  : 'changeUserPasswordController'
+      controller  : 'changeUserPasswordController',
+      title: 'Zmień hasło'
+    })
+
+    .otherwise({
+      redirectTo : '/ohmy',
+      templateUrl : 'error404.html',
+      controller  : 'error404Controller',
+      title: 'Błąd 404 - Nie znaleziono strony'
     });
-  
-    //$locationProvider.html5Mode(true);
+
+    $locationProvider.html5Mode(true);
  });

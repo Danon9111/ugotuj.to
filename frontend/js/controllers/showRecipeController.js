@@ -1,52 +1,101 @@
-//showRecipeController - The controller gives the ability to load specific recipe by a user.
-
 /*
-info:
-The $routeParams service is populated asynchronously. This means it will typically appear empty when first used in a controller.
-Controllers used by a route, or within a template included by a route, will have immediate access to the fully-populated $routeParams because ng-view waits for the $routeChangeSuccess event before continuing. (It has to wait, since it needs the route information in order to decide which template/controller to even load.)
-
-If you know your controller will be used inside of ng-view, you won't need to wait for the routing event. If you know your controller will not, you will. If you're not sure, you'll have to explicitly allow for both possibilities. Subscribing to $routeChangeSuccess will not be enough; you will only see the event if $routeParams wasn't already populated
-
-What I discovered is that, $routeParams take some time to load in the Main Controller, it probably initiate the Main Controller first and then set $routeParams at the Child Controller.
-
-$ROUTE $ROUTE $ROUTE $ROUTE
+showRecipeController - The controller gives the ability to load specific recipe by a user.
 */
 
-app.controller('showRecipeController',['$scope', '$http', 'MessagePrintService', '$rootScope', '$routeParams', '$cookies', '$route',function($scope, $http, MessagePrintService, $rootScope, $cookies, $routeParams, $route) { 
+app.controller('showRecipeController',['$scope', '$http', 'Notifications', '$rootScope', '$routeParams', '$cookies', '$route', 'validateAuthToken', '$sce', function($scope, $http, Notifications, $rootScope, $cookies, $routeParams, $route, validateAuthToken, $sce) {
 
-  $rootScope.auth = $cookies.authToken;
-  $scope.msgObj = MessagePrintService.msg();
-  
-  //console.log('routeParams:'+JSON.stringify($route.current.params.recipeId));
-  $scope.showRecipePostPath = "http://46.175.46.220/api/Recipe/" + $route.current.params.recipeId;
-  $scope.msgObj = MessagePrintService.msg();
-                                         
+  $rootScope.bgImage = "";
   $rootScope.meta.title = "Przepis";
-  
-  $rootScope.auth = $cookies.authToken;                                       
-  $scope.msgObj.msgPrint("info", "");
-                                         
-  $rootScope.authVerify = function(data) {
-    $cookies.authToken = data.toString();
-    $rootScope.auth = $cookies.authToken;
+
+  $scope.notificationService = Notifications;
+
+  $scope.difficultyImg = "";
+  $scope.timeImg = "time_hard";
+
+  validateAuthToken.success(function(res) {
+    $scope.validateAuthToken = res;
+  });
+
+  $scope.isRecipeFavourite = function() {
+    if($routeParams.authToken != null && $routeParams.authToken != "") {
+      $http.post('http://ugotuj.to.hostingasp.pl/api/isFavoriteRecipe', { token: $routeParams.authToken, recipeid: $route.current.params.recipeId })
+      .success(function(res) {
+        $scope.isFav = res;
+        return res;
+      })
+      .error(function(res) {
+        $scope.isFav = res;
+        return res;
+      });
+    } else {
+      return false;
+    }
   }
-  
+
+  $scope.addToFavourites = function(id) {
+    $http.post('http://ugotuj.to.hostingasp.pl/api/addFavoriteRecipe', { token: $routeParams.authToken, recipeid: id })
+    .success(function(res) {
+      $scope.isRecipeFavourite();
+    })
+    .error(function(res) {
+      $scope.isRecipeFavourite();
+    })
+  }
+
+  $scope.removeFromFavourites = function(id) {
+    $http.post('/api/removeFavoriteRecipe', { token: $routeParams.authToken, recipeid: id })
+    .success(function(res) {
+      $scope.isRecipeFavourite();
+    })
+    .error(function(res) {
+      $scope.isRecipeFavourite();
+    })
+  }
+
+  $scope.showRecipePostPath = "http://ugotuj.to.hostingasp.pl/api/Recipe/" + $route.current.params.recipeId;
   $scope.recipe = {};
-  
+  $scope.isRecipeFavourite();
+
   $http.get($scope.showRecipePostPath)
   .success(function (data) {
-    $scope.recipe.name = data["name"];
-    $scope.recipe.description = data["description"];
-    $scope.recipe.preparation = data["preparation"];
-    $scope.recipe.photo = data["photo"];
-    $scope.recipe.video = data["video"];
-    $scope.recipe.readyIn = data["readyIn"];
-    $scope.recipe.difficulty = data["difficulty"];
-    $scope.recipe.category = data["category"];
-    $scope.recipe.ingredients = data["ingredients"];
-    
-    $scope.loadingState = "hide";
-    
+    $scope.recipe = {
+      name: data["name"],
+      description: data["description"],
+      preparation: data["preparation"],
+      photo: data["photo"],
+      video: data["video"],
+      readyIn: data["readyIn"],
+      difficulty: data["difficulty"],
+      category: data["category"],
+      ingredients: data["ingredients"],
+      user: data["user"],
+      id: $route.current.params.recipeId,
+    }
+    if($scope.recipe.video != "" && $scope.recipe.video != null) {
+      if($scope.recipe.video.search("youtube") != -1) {
+        $scope.recipe.video = $scope.recipe.video.replace("watch?v=", "v/");
+        $scope.video = $sce.trustAsHtml('<iframe width="560" height="315" src="' + $scope.recipe.video + '" frameborder="0" allowfullscreen></iframe>');
+      }
+    }
+
+    if(parseInt($scope.recipe.difficulty) <= 2) {
+      $scope.difficultyImg = "difficult_light";
+    } else if(parseInt($scope.recipe.difficulty) > 2 && parseInt($scope.recipe.difficulty) <= 4) {
+      $scope.difficultyImg = "difficult_medium";
+    } else {
+      $scope.difficultyImg = "difficult_hard";
+    }
+
+    if(parseInt($scope.recipe.readyIn) <= 15) {
+      $scope.timeImg = "time_light";
+    } else if(parseInt($scope.recipe.readyIn) > 15 && parseInt($scope.recipe.readyIn) <= 45) {
+      $scope.timeImg = "time_medium";
+    } else {
+      $scope.timeImg = "time_hard";
+    }
+
+    $rootScope.meta.title = $rootScope.meta.title + " - " + $scope.recipe.name;
+
     var concat = "";
     for(item in $scope.recipe) {
       if($scope.recipe[item] == null || $scope.recipe[item] == "" || $scope.recipe[item] == "0") {
@@ -56,16 +105,10 @@ app.controller('showRecipeController',['$scope', '$http', 'MessagePrintService',
       }
     }
     if(concat == "") {
-      $scope.msgObj.msgPrint("alert", "Recipe not found!");
-      setTimeout(function () {
-         window.location.href = "index.html";
-      }, 4000);    
+      $scope.notificationService.Add("alert", "Nie znaleziono przepisu.");
     }
-    //console.log(concat);
   })
   .error(function (data) {
-    $scope.msgObj.msgPrint("alert", "Failed to send data to server. try again in a while.");
-    $rootScope.authVerify("authToken", "");
-  })    
-  
+    $scope.notificationService.Add("alert", "Ups! :( Coś poszło nie tak. Spróbuj ponownie za chwilę.");
+  })
 }]);

@@ -1,21 +1,27 @@
-//RegisterNewUserController - The controller gives the ability to register new user through restAPI.
+/*
+registerNewUserController - The controller gives the ability to register new user to the database.
+*/
 
-app.controller('registerNewUserController', ['$scope', '$http', 'MessagePrintService', '$cookies', '$rootScope', function($scope, $http, MessagePrintService, $cookies, $rootScope) { 
+app.controller('registerNewUserController', ['$scope', '$http', 'Notifications', '$cookies', '$rootScope', function($scope, $http, Notifications, $cookies, $rootScope) {
 
-  $scope.registerPostPath = "http://46.175.46.220/api/registration";
-  $scope.msgObj = MessagePrintService.msg();
-  
   $rootScope.meta.title = "Rejestracja";
-  
+  $rootScope.bgImage = "img/registerImg.jpg";
+
+  $scope.notificationService = Notifications;
+
   $scope.loading = false;
-  $scope.loadingState = "hide";
-  
+
   $scope.registerForm = {};
   $scope.registerForm.login = "";
   $scope.registerForm.email = "";
   $scope.registerForm.password = "";
   $scope.registerForm.passwordVerify = "";
-  
+  $scope.registerForm.terms = false;
+
+  $scope.doIfChecked = function(checkStatus) {
+    $scope.registerForm.terms = checkStatus;
+  }
+
   $scope.registerForm.submitTheForm = function(item, event) {
     var dataObject = {
       email : $scope.registerForm.email,
@@ -23,45 +29,36 @@ app.controller('registerNewUserController', ['$scope', '$http', 'MessagePrintSer
       password : $scope.registerForm.password,
       passwordVerify : $scope.registerForm.passwordVerify
     };
-    
+
     if(dataObject.email == "" || dataObject.login == "" || dataObject.password == "" || dataObject.passwordVerify == "") {
-      $scope.msgObj.msgPrint("alert", "Niepoprawne dane");
+      $scope.notificationService.Add("alert", "Niepoprawne dane.");
+    } else if($scope.registerForm.terms != true){
+        $scope.notificationService.Add("alert", "Nie zaakceptowałeś regulaminu.");
     } else {
       if(dataObject.password.toString() === dataObject.passwordVerify.toString()) {
-        $http.post($scope.registerPostPath, "email=" + encodeURIComponent(dataObject.email) +
+        $http.post('http://ugotuj.to.hostingasp.pl/api/registration', "email=" + encodeURIComponent(dataObject.email) +
                             "&login=" + encodeURIComponent(dataObject.login) +
                             "&password=" + encodeURIComponent(dataObject.password),
-                            {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+                            { headers: {'Content-Type': 'application/x-www-form-urlencoded'} })
         .success(function (data) {
-          $scope.registerForm.login = "";
-          $scope.registerForm.email = "";
-          $scope.registerForm.password = "";
-          $scope.registerForm.passwordVerify = "";
           if(data.toString() === "Konto użytkownika zostało dodane poprawnie!") {
-            $scope.msgObj.msgPrint("success", data.toString());
-            $rootScope.changeLinks();
+            $scope.registerForm.login = "";
+            $scope.registerForm.email = "";
+            $scope.registerForm.password = "";
+            $scope.registerForm.passwordVerify = "";
+            $scope.registerForm.terms = false;
+            $scope.checkStatus = false;
+            $scope.notificationService.Add("success", data.toString());
           } else {
-            $scope.msgObj.msgPrint("alert", data.toString());
+            $scope.notificationService.Add("alert", data.toString());
           }
         })
         .error(function (data) {
-          $scope.msgObj.msgPrint("alert", "Failed to send data to server. try again in a while.");
-
+          $scope.notificationService.Add("alert", "Ups! :( Coś poszło nie tak. Spróbuj ponownie za chwilę.");
         })
       } else {
-        $scope.msgObj.msgPrint("alert", "Hasła się nie zgadzają");
+        $scope.notificationService.Add("alert", "Hasła się nie zgadzają");
       }
     }
   }
-
-  $scope.loadingToggle = function() {
-    if($scope.loading === true) {
-      $scope.loading = false;
-      $scope.loadingState = "hide";
-    } else {
-      $scope.loading = true;
-      $scope.loadingState = "show";
-    }
-  };  
-  
 }]);

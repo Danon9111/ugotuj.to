@@ -1,0 +1,89 @@
+<div ng-controller="accountController" class="container begin-space">
+  <div class="row">
+    <div class="account-managepanel col-lg-2 col-md-3 col-sm-3">
+      <div class="avatar text-center">
+        <img ng-src="{{ user.profilephoto }}"/>
+      </div>
+      <div class="account-links text-center">
+        <!-- -->
+        <div class="fileUpload btn btn-default">
+          <span>Zmień awatar</span>
+          <input type="file" name="file" class="upload" onchange="angular.element(this).scope().uploadUserPhoto(this.files)"/>
+        </div>
+        <img src="img/loading.gif" ng-show="loading"/>
+        <ul>
+          <li><a href="account/changepassword/">Zmień hasło</a></li>
+          <li><a href="recipe/add/">Dodaj przepis</a></li>
+          <li><a href="account/logout/">Wyloguj</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-10 col-md-9 col-sm-9">
+      <div class="account-recipes-wrapper">
+        <h2>Witaj, {{ user.login }}!</h2>
+        <h4>Twoje przepisy</h4>
+        <br>
+        <!-- -->
+        <span ng-show="isRecipeEmpty == true">
+          <div class="account-empty-recipes vertical-centered yours" style="margin-bottom: 5px;">
+            <div class="center-vert account-empty-text">
+              <a href="recipe/add/">
+                <span>Brak przepisów,</span>
+                <span>Dodaj<span style="font-size: 20px; margin-left: 3px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span></span>
+              </a>
+            </div>
+          </div>
+        </span>
+          <div ng-repeat="recipe in userRecipes">
+            <div class="well account-well">
+              <img class="pull-left" data-ng-src="{{ recipe.photo }}" alt="photo"/>
+              <div class="search-result-text pull-left">
+                <a type="button" data-ng-href="recipe/{{ recipe.id }}" href="recipe/{{ recipe.id }}"><h3>{{ recipe.name | htmlToPlaintext | shortenText }}</h3></a>
+                <h4>{{ recipe.description | htmlToPlaintext | shortenText  }}</h4>
+              </div>
+              <div style="margin-top: 25px;">
+                <a ng-click="removeRecipeById(recipe.id)" class="glyphicon glyphicon-trash pull-right" aria-hidden="true" style="font-size: 20px; cursor: pointer;"></a>
+              </div>
+            </div>
+          </div>
+          <span ng-show="isRecipeEmpty == false">
+            Hej, może dodasz jakiś pyszny przepis? :)
+            <br>
+            <a href="recipe/add/"><button class="btn btn-primary" style="margin-top: 5px;">Dodaj przepis</button></a>
+          </span>
+        <!-- -->
+        <!-- -->
+        <br>
+        <h4 style="margin-top: 30px;">Przepisy, które polubiłeś</h4>
+        <br>
+        <span ng-show="isFavouritesEmpty == true || isFavouritesEmpty == 'undefined'">
+          <div class="account-empty-recipes vertical-centered favs" style="margin-bottom: 5px;">
+            <div class="center-vert account-empty-text">Brak ulubionych</div>
+          </div>
+          Hej, nie dodałeś jeszcze żadnego przepisu do ulubionych! :(
+        </span>
+        <div ng-repeat="favourite in favourite_recipes">
+          <div class="well account-well">
+            <img class="pull-left" data-ng-src="{{ favourite.photo }}" alt="photo"/>
+            <div class="search-result-text pull-left">
+              <a type="button" data-ng-href="recipe/{{ favouritee.id }}" href="recipe/{{ favourite.id }}"><h3>{{ favourite.name | htmlToPlaintext | shortenText }}</h3></a>
+              <h4>{{ favourite.description | htmlToPlaintext | shortenText  }}</h4>
+            </div>
+          </div>
+        </div>
+        <!-- -->
+      </div>
+    </div>
+  </div>
+
+  <div class="notification-wrapper" ng-hide="notificationService.all == ''">
+    <span ng-repeat="notification in notificationService.all | reverse">
+      <div class="notification" ng-class="notification.type" ng-click="notificationService.Remove(notification)">
+        <p>
+          <span ng-bind="notification.content"></span>
+          <span style="margin-left: 5px;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </p>
+      </div>
+    </span>
+  </div>
+</div>
