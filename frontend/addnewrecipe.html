@@ -1,48 +1,20 @@
-<div ng-controller="addNewRecipeController">
-  <fieldset name="Add new recipe">
-    <legend>Dodawanie przepisu</legend>
-    <form class="contact-form" role="form">
-      <div class="contact-form-group left">
-        <label for="name">Name:</label>
-        <input ng-model="addNewRecipeForm.name" id="name" type="text" placeholder="Submit name">
+<div class="container begin-space">
+  <div class="row col-md-offset-2">
+    <div class="col-sm-9">
+      <div ng-controller="addNewRecipeController">
+        <addrecipe></addrecipe>
+        <br>
+        <div class="notification-wrapper" ng-hide="notificationService.all == ''">
+          <span ng-repeat="notification in notificationService.all | reverse">
+            <div class="notification" ng-class="notification.type" ng-click="notificationService.Remove(notification)">
+              <p>
+                <span ng-bind="notification.content"></span>
+                <span style="margin-left: 5px;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </p>
+            </div>
+          </span>
+        </div>
       </div>
-      <div class="contact-form-group left">
-        <label for="description">Description:</label>
-        <input ng-model="addNewRecipeForm.description" id="description" type="text" placeholder="Submit description">
-      </div>
-      <div class="contact-form-group left">
-        <label for="preparation">Preparation:</label>
-        <input ng-model="addNewRecipeForm.preparation" id="preparation" type="text" placeholder="Submit preparation">
-      </div>
-      <div class="contact-form-group left">
-        <label for="photo">Photo:</label>
-        <input ng-model="addNewRecipeForm.photo" id="photo" type="text" placeholder="Submit photo">
-      </div>
-      <div class="contact-form-group left">
-        <label for="photo">Video:</label>
-        <input ng-model="addNewRecipeForm.video" id="video" type="text" placeholder="Submit video">
-      </div>
-      <div class="contact-form-group left">
-        <label for="readyin">Ready in(minutes):</label>
-        <input ng-model="addNewRecipeForm.readyIn" id="readyIn" type="text" placeholder="Submit ready in time">
-      </div>
-      <div class="contact-form-group left">
-        <label for="difficulty">Difficulty(1-5):</label>
-        <input ng-model="addNewRecipeForm.difficulty" id="difficulty" type="text" placeholder="Submit difficulty">
-      </div>
-      <div class="contact-form-group left">
-        <label for="category">Category:</label>
-        <input ng-model="addNewRecipeForm.category" id="category" type="text" placeholder="Submit category">
-      </div>
-      <div class="contact-form-group left">
-        <label for="ingredients">Ingredients:</label>
-        <input ng-model="addNewRecipeForm.ingredients" id="ingredients" type="text" placeholder="Submit ingredients">
-      </div>
-      <button ng-click="loadingToggle(); addNewRecipeForm.submitTheForm()">Add</button>
-    </form>
-  </fieldset>    
-  <br>
-  <div ng-class="msgObj.msgClass">Status: {{ msgObj.msgContent }}</div>
-  <br>
-  <img ng-class="loadingState" src="img/loading.gif"/>
+    </div>
+  </div>
 </div>

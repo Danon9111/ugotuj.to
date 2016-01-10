@@ -1,0 +1,75 @@
+<div ng-controller="showRecipeController">
+  <div class="container-fluid" style="margin-top: -100px;">
+    <div class="row">
+      <div class="recipe-top col-lg-12">
+        <div class="col-lg-6 col-md-6 col-sd-6 col-lg-offset-3 col-md-offset-3 col-sd-offset-3 center-vert recipe-decoration">
+          <h1><div ng-bind-html="recipe.name"></div></h1>
+          <h4><div ng-bind-html="recipe.description | htmlToPlaintext"></div></h4>
+          <h5><div ng-bind-html="recipe.category"></div></h5>
+          <h6>Dodane przez: <span ng-bind-html="recipe.user"></span></h6>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="notification-wrapper" ng-hide="notificationService.all == ''">
+      <span ng-repeat="notification in notificationService.all | reverse">
+        <div class="notification" ng-class="notification.type" ng-click="notificationService.Remove(notification)">
+          <p>
+            <span ng-bind="notification.content"></span>
+            <span style="margin-left: 5px;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </p>
+        </div>
+      </span>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3 ingredients-wrapper">
+        <div class="ingredients">
+          <h3>Składniki:</h3>
+          <p>
+            <ul>
+              <div ng-bind-html="recipe.ingredients"></div>
+            </ul>
+          </p>
+          <h3>Czas i trudność:</h3>
+          <div style="margin-top: 10px;">
+            <ul style="list-style-type: none;">
+              <li>
+                <img ng-src="img/{{ difficultyImg }}.png" style="width: 15px; margin-right: 5px;"/>{{ recipe.difficulty }}/5
+                <img ng-src="img/{{ timeImg }}.png" style="width: 40px; margin-right: 5px; margin-left: 10px;"/>{{ recipe.readyIn }}min.
+              </li>
+            </ul>
+          </div>
+          <span ng-show="loggedIn == true">
+            <h3>Ulubione:</h3>
+            <div style="margin-top: 10px;">
+              <ul style="list-style-type: none;">
+                <li ng-show="isFav == true" ng-model="isFav" ng-change="isRecipeFavourite()">
+                  <a ng-click="removeFromFavourites(recipe.id)" class="glyphicon glyphicon-heart favourite favourite-true" aria-hidden="true"></a>
+                </li>
+                <li ng-show="isFav == false" ng-model="isFav" ng-change="isRecipeFavourite()">
+                  <a ng-click="addToFavourites(recipe.id)" class="glyphicon glyphicon-heart favourite favourite-false" aria-hidden="true"></a>
+                </li>
+              </ul>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-6 preparation-wrapper">
+        <div class="preparation">
+          <h3>Opis:</h3>
+          <p>
+            <div ng-bind-html="recipe.preparation"></div>
+            <div ng-bind-html="video"></div>
+          </p>
+        </div>
+      </div>
+      <div class="col-sm-3 dishImage-wrapper">
+        <a ng-href="{{ recipe.photo }}">
+          <div class="dishImage" ng-style="{'background-image':'url('+recipe.photo+')'}"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

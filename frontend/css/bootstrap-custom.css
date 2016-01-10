@@ -1,29 +1,158 @@
 /*################### Nawigacja --*/
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
-    padding-top: 20px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+  font-size: 14px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #303030;
+  font-family: 'Lato', sans-serif;
+
+  margin-bottom: 100px;
 }
 
 .navbar-fixed-top .nav {
-    padding: 15px 0;
 }
 
-.navbar-fixed-top .navbar-brand {
-    padding: 0 15px;
+.navbar {
+  margin-bottom: 0px;
 }
 
+.nav-pills {
+    padding-top: 5px;
+}
+
+.navbar-brand {
+    padding: 5px 15px 5px 15px;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+.h2-label {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ff8217;
+}
+
+.begin-space {
+  margin-top: 50px;
+}
+
+.top-space {
+  margin-bottom: 100px;
+}
+
+.vertical-centered {
+  height: 400px;
+  max-height: 400px;
+}
+
+
+footer {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  text-align: center;
+  background-color: #fff;
+  opacity: 0.95;
+
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+}
+
+.footer ul li {
+  list-style-type: none;
+  display: inline;
+}
+
+.footer li {
+  margin-left: 10px;
+}
+
+.footer p {
+  display: inline;
+}
+
+/*angular classes*/
+.animate-show {
+  opacity: 1;
+  transition: all linear 0.5s;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+.animate-show.ng-hide {
+  transition: all linear 0.5s;
+  opacity: 0;
+}
+
+.fade.in {
+    opacity: 1;
+}
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear;
+    -moz-transition: opacity 0.15s linear;
+    -o-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+}
+.alert-info {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #3a87ad;
+}
+
+[data-toggle="buttons"] > .btn > input[type="radio"],
+[data-toggle="buttons"] > .btn > input[type="checkbox"] {
+    clip: rect(1px 10px 1px 1px);
+}
+
+/*a {
+  color: #ff8217;
+}*/
+
+/*
 @media(min-width:768px) {
     body {
-        padding-top: 20px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+        padding-top: 20px;  Required padding for .navbar-fixed-top. Change if height of navigation changes.
     }
 
     .navbar-fixed-top .navbar-brand {
         padding: 15px 0;
     }
 }
+*/
 
 #navvvv li > active {
   background-color: red !important;
+}
+
+.alert-custom {
+  /*position: fixed;*/
+  position: absolute;
+  margin: 5% auto;
+  /*left: 0;*/
+  right: 20px;
+  bottom: 35px;
+  right: 10px;
+  transition: 250ms;
+  z-index: 999;
+}
+
+.alert-custom:hover {
+  transition: 250ms;
+  opacity: 0.8;
+  bottom: 40px;
 }
 
 .msg-success {
@@ -45,3 +174,579 @@ body {
 .show {
   display: block;
 }
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 1.33em;
+  line-height: 1.428571429;
+  border-radius: 1.25em;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 1.29em;
+  line-height: 1.33;
+  border-radius: 25px;
+  cursor: default;
+
+  font-size: 1.33em;
+  padding-top: 13px;
+}
+
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+.btn-time {
+  background-color: #5cb85c;
+  border: 0;
+}
+
+.btn-difficulty {
+  background-color: #ed9c28;
+  border: 0;
+}
+
+.recipe-top {
+  /*background-color: #fe963c;*/
+  background-image: url('../img/woodenBg_7.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+  max-height: 400px;
+  -moz-box-shadow: inset 0 -10px 10px -10px #000000;
+  -webkit-box-shadow: inset 0 -10px 10px -10px #000000;
+  box-shadow: inset 0 -10px 40px -10px #000000;
+  color: #fff;
+  font-family: 'Vollkorn', serif;
+}
+
+.search-top {
+  margin-top: -50px;
+  padding-top: 30px;
+  background-image: url('../img/kettle_bg.png');
+  border-bottom: 1px solid #ddd;
+  background-repeat: repeat;
+  z-index: -5;
+/*  -moz-box-shadow: inset 0 -10px 10px -10px #000000;
+  -webkit-box-shadow: inset 0 -10px 10px -10px #000000;
+  box-shadow: inset 0 -10px 40px -10px #000000;*/
+}
+
+.search-top-bubble {
+  background-image: url('../img/bubble.png');
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 214px;
+  height: 238px;
+  z-index: -1;
+}
+
+.search-top h2 {
+  text-align: center;
+}
+
+.search-top input {
+  height: 40px;
+  border-radius: 2px;
+}
+
+.recipe-decoration {
+  border: 5px #fff;
+  border-style: double none;
+  bottom: 120px;
+  text-align: center;
+  text-shadow: 2px 2px 5px #1f1f1f;
+}
+
+.center-vert {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
+.center-vertical-align {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+  text-shadow: 2px 2px 5px #1f1f1f;
+  border: 5px #fff;
+  border-style: double none;
+}
+
+.ingredients-wrapper {
+  padding: 0px 10px 10px 10px;
+}
+
+.ingredients h3 {
+  color: #fe963c;
+}
+
+.ingredients {
+  padding: 0px 15px 15px 15px;
+  font-family: 'Vollkorn', serif;
+  font-size: 1.1em;
+  color: #454545;
+}
+
+.preparation-wrapper {
+  padding: 0px 10px 10px 10px;
+}
+
+.preparation {
+  padding: 0px 15px 15px 15px;
+  font-family: 'Vollkorn', serif;
+  font-size: 1.29em;
+  color: #454545;
+}
+
+.preparation h3 {
+  color: #fe963c;
+}
+
+.dishImage-wrapper {
+  padding: 10px 10px 10px 10px;
+}
+
+.dishImage-wrapper a {
+}
+
+.dishImage {
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  padding: 0 0 0 0;
+  overflow: hidden;
+  max-height: 300px;
+  height: 300px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: 250ms;
+}
+
+.dishImage:hover {
+  border: 1px solid #ff8217;
+  transition: 250ms;
+}
+
+.well img{
+  border: 1px solid #fff;
+  border-radius: 3px;
+  width: 70px;
+  height: 70px;
+  margin-right: 5px;
+}
+
+.well {
+  padding: 10px 10px 10px 10px;
+  overflow: hidden;
+}
+
+.well h3 {
+  margin: 0 0 0 0;
+  font-size: 18px;
+}
+
+.well h4 {
+  margin: 5px 0 0 0;
+  font-size: 16px;
+}
+
+.search-result-text {
+  padding: 5px 5px 5px 5px;
+}
+
+.trash {
+  margin-top: 25px;
+
+}
+
+.logon {
+  padding: 20px 20px 20px 20px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  background-color: #f6f6f6;
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.5);
+}
+
+.space-form-control {
+  margin-top: 8px;
+}
+
+.logon input {
+  margin-top: 3px;
+}
+
+.vcenter {
+  display: flex;
+  align-items: center;
+}
+
+.form-signin-heading {
+  color: #4f4f4f;
+  font-size: 1.2em;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.width-80 {
+  width: 80%;
+}
+
+.loadingWrapper {
+  height: 60px;
+}
+
+.special-image {
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+
+}
+
+.remove-item {
+  background: #e04e4e;
+  border-color: #c33e3e;
+  height: 34px;
+  margin-top: 3px;
+  width: 30px;
+  font-size: 10px;
+}
+
+.add-item {
+  height: 34px;
+  margin-top: 3px;
+  width: 30px;
+  font-size: 10px;
+}
+
+.cookies-alert {
+  background-color: #ddd;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 10px;
+}
+
+.uib-custom {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 305px;
+}
+
+.carousel-wrapper {
+  height: 305px;
+}
+
+.carousel-inner {
+  height: 305px;
+}
+
+.carousel {
+  height: 305px;
+}
+
+.carousel-indicators {
+  bottom: 5px;
+  display: none;
+}
+
+.carousel-caption {
+  padding: 5px 5px 5px 5px;
+  background-color: rgba(255, 130, 23, 0.95);
+  border-radius: 3px;
+  box-shadow: 0 0 20px -10px #000000;
+  border: 1px solid #ff983f;
+  transition: 250ms;
+}
+
+.carousel-caption:hover {
+  transition: 250ms;
+  background-color: #ff973e;
+  box-shadow: 5px 5px 20px -10px #000000;
+}
+
+.carousel p, h4 {
+  text-shadow: none;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+}
+
+carosuel p {
+  font-size: 20px;
+}
+
+carousel h4 {
+  font-size: 16px;
+}
+
+carousel img {
+  height: 305px;
+  max-height: 305px;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.carousel a {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+.recommended-recipe {
+  height: 316px;
+  overflow: hidden !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0 0 0 0;
+  border: 1px solid #ddd;
+  transition: 250ms;
+}
+
+.recommended-recipe:hover {
+  transition: 250ms;
+  border: 1px solid #ff8217;
+
+}
+
+.recommended-recipe:hover .recommend-text {
+  transition: 250ms;
+  background-color: #ff973e;
+}
+
+a.divLink {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-decoration: none;
+    /* Makes sure the link doesn't get underlined */
+    z-index: 10;
+    /* raises anchor tag above everything else in div */
+    background-color: white;
+    /*workaround to make clickable in IE */
+    opacity: 0;
+    /*workaround to make clickable in IE */
+    filter: alpha(opacity=0);
+    /*workaround to make clickable in IE */
+}
+
+.recommended-recipe img {
+  border-radius: 3px;
+  width: 100px;
+  height: 100px;
+  margin-right: 5px;
+}
+
+.recommend-text {
+  color: #fff;
+  background-color: rgba(255, 130, 23, 0.8);
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  transition: 250ms;
+}
+
+.recommend-text a {
+  color: #fff;
+  padding: 0 0 0 0;
+}
+
+.recommend-text h3 {
+  padding: 0 0 0 0;
+  margin-left: 10px;
+}
+
+.recommend-text h4 {
+  padding: 0 0 0 0;
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+
+.frame-wrapper {
+  padding: 5px 5px 5px 5px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  transition: 250ms;
+}
+
+.frame-wrapper:hover {
+  transition: 250ms;
+  border: 1px solid #ff8217;
+}
+
+.account-managepanel {
+  padding: 10px 10px 10px 10px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+}
+
+.account-empty-recipes {
+  border: 1px solid #ddd;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 150px;
+  border-radius: 4px;
+  transition: 250ms;
+}
+
+.account-empty-text {
+  text-align: center;
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.account-empty-text a {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  text-decoration: none;
+  text-align: center;
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: 250ms;
+}
+
+.account-empty-text a:hover {
+  color: rgba(255, 255, 255, 1);
+  transition: 250ms;
+}
+
+.yours {
+  background-image: url('../img/cooking_3.jpg');
+}
+
+
+.favs {
+  background-image: url('../img/cook2.jpg');
+}
+
+.avatar img{
+  width: 120px;
+  height: 120px;
+  border: 1px solid #ff8217;
+  border-radius: 3px;
+}
+
+.account-links {
+  padding: 0 0 0 0;
+}
+
+.account-links ul {
+  margin-top: 10px;
+  list-style-type: none;
+  list-style-position: inside;
+  padding: 0 0 0 0;
+  cursor: pointer;
+}
+
+.account-recipes-wrapper {
+  padding: 0px 10px 10px 10px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+}
+
+.account-well {
+  padding: 5px 5px 5px 5px;
+  margin-bottom: 5px;
+  font-size: 10px;
+}
+
+/*File Upload*/
+.thumb {
+    width: 24px;
+    height: 24px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+
+form .progress {
+    line-height: 15px;
+}
+
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+
+.progress div {
+    font-size: smaller;
+    background: orange;
+    width: 0;
+}
+/*File Upload end*/
+
+.favourite {
+  font-size: 35px;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: 250ms;
+}
+
+.favourite-true {
+  color: red;
+  transition: 250ms;
+}
+
+.favourite-true:hover {
+  color: #ddd;
+  transition: 250ms;
+}
+
+.favourite-false {
+  color: #ddd;
+  transition: 250ms;
+}
+
+.favourite-false:hover {
+  color: red;
+  transition: 250ms;
+}
+
+.drop-li {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* file upload button */
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+/* file upload button end */

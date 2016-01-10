@@ -1,0 +1,25 @@
+<div ng-controller="loginUserController">
+  <fieldset name="login">
+    <legend>Logowanie</legend>
+    <form class="contact-form" role="form">
+      <div class="contact-form-group left">
+        <label for="login">Login:</label>
+        <input ng-model="loginForm.login" id="login" type="text" placeholder="Submit login">
+      </div>       
+      <div class="contact-form-group left">
+        <label for="password">password:</label>
+        <input ng-model="loginForm.password" id="password" type="password" placeholder="Submit password">
+      </div>
+      <button ng-click="loadingToggle(); loginForm.submitTheForm()">Log in</button>
+    </form>
+  </fieldset>    
+  <a href="#forgotpassword"<button>Forgot password</button></a>
+  <br>
+  <a href="#register"<button>Register new user</button></a>
+  <br>
+  <alert class="col-lg-4 col-lf-offset-8 animate-show" style="position: fixed; bottom: 10px; right: 10px; z-index: 999;" type="{{ msgObj.msgClass }}" close="closeAlert()" ng-show="msgObj.msgContent != null">
+    <strong>{{ msgObj.msgClass }}</strong>  {{ msgObj.msgContent }}
+  </alert>
+  <br>
+  <img ng-class="loadingState" src="img/loading.gif"/>
+</div>

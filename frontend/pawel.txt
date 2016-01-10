@@ -1,0 +1,34 @@
+W związku z tym, że musiałem napisać funkcję umożliwiającą edycję przepisów, napisałem nowy kontroler o nazwie "/api/Recipes", w którym zaimplementowałem wszystkie metody służące przeglądaniu, edycji, usuwaniu przepisów.
+
+GET: api/Recipes - wyświetla wszystkie przepisy z bazy danych
+GET: api/Recipes/5 - wyświetla konkretny przepis z bazy danych
+PUT: api/Recipes/ - edytuje konkretny przepis bazy danych (opiszę dokładnie za chwilę)
+POST: api/Recipes - tworzy nowy przepis w bazie danych (opiszę dokładnie za chwilę)
+DELETE: - aktualnie nie zaimplementowane, z uwagi na problem z przekazaniem tokena
+
+PUT: 
+Adres: http://ugotuj.to.hostingasp.pl/api/recipes/
+Treść żądania(przykładowego):
+{
+"recipe":{"id":"3","nazwa":"Penne Alla Mexicana","opis":"Bardzo pikantne danie dla smakoszy.","przygotowanie":"KROK 1: Na rozgrzanej patelni podsmażam drobno pokrojoną cebulę, czosnek, startą na tarce marchewkę oraz rozgniecioną papryczką chili bez pestek. Do podsmażonej całości dodaje mięso mielone i duszę przez 10-15 minut. Pozostałe warzywa kroję w kostkę. Do usmażonego mięsa dodaję pokrojoną paprykę oraz pomidory i duszę przez kolejne 5 minut.  KROK 2: Pod koniec smażenia przyprawiam całość papryką chili i słodką, pieprzem, solą oraz ziołami prowansalskimi. Na samym końcu dodaję koncetrat pomidorowy i  odcedzoną fasolę z puszki. Dokładnie mieszam i duszę przez 2 minuty.  KROK 3: Makaron penne gotuję według wskazówek na opakowaniu.
+
+[24.11.2015 02:05:50] PIT: Ugotowany makaron podaję z sosem mięsno-warzywnym.","zdjecie":"http://www.makarony.co/files2/imagecache/main-image/przepis/1103/zdjecie0050.jpg","film":"","data_utworzenia":"2015-10-11T14:54:23","czas_wykonania":45,"trudnosc":2,"kategoria":"Makarony","skladniki":"Penne 400 g Mięso mielone 500 g Papryka czerwona 1 szt Papryka żółta 1 szt Paprzyczka chili 1 szt Pomidor 2 szt Czosnek 3 ząbki Puszka fasoli czerwonej 1 szt Koncetrat pomidorowy 3 łyżki Cebula 1 szt Marchew 1 szt Oliwa z oliwek   Papryka chili Papryka słodka Pieprz Sól Zioła prowansalskie"},
+"token":"LNdVLB+YY17f4BU2Onmiqms++N0eZ4ivZMGNAHTGpDC7BtDe2Sq9rRh5Qbp6O+pu"
+}
+[24.11.2015 02:06:35] PIT: Najlepiej wyświetlić to w edytorze kolorującym i rozpoznającym składnie JSONa
+
+POST:
+Adres: http://ugotuj.to.hostingasp.pl/api/recipes/
+Treść żądania(przykładowego):
+{
+"recipe":{"nazwa":"Penne Alla Mexicana","opis":"Bardzo pikantne danie dla smakoszy.","przygotowanie":"KROK 1: Na rozgrzanej patelni podsmażam drobno pokrojoną cebulę, czosnek, startą na tarce marchewkę oraz rozgniecioną papryczką chili bez pestek. Do podsmażonej całości dodaje mięso mielone i duszę przez 10-15 minut. Pozostałe warzywa kroję w kostkę. Do usmażonego mięsa dodaję pokrojoną paprykę oraz pomidory i duszę przez kolejne 5 minut.  KROK 2: Pod koniec smażenia przyprawiam całość papryką chili i słodką, pieprzem, solą oraz ziołami prowansalskimi. Na samym końcu dodaję koncetrat pomidorowy i  odcedzoną fasolę z puszki. Dokładnie mieszam i duszę
+
+przez 2 minuty.  KROK 3: Makaron penne gotuję według wskazówek na opakowaniu. Ugotowany makaron podaję z sosem mięsno-warzywnym.","zdjecie":"http://www.makarony.co/files2/imagecache/main-image/przepis/1103/zdjecie0050.jpg","film":"","data_utworzenia":"2015-10-11T14:54:23","czas_wykonania":45,"trudnosc":2,"kategoria":"Makarony","skladniki":"Penne 400 g Mięso mielone 500 g Papryka czerwona 1 szt Papryka żółta 1 szt Paprzyczka chili 1 szt Pomidor 2 szt Czosnek 3 ząbki Puszka fasoli czerwonej 1 szt Koncetrat pomidorowy 3 łyżki Cebula 1 szt Marchew 1 szt Oliwa z oliwek   Papryka chili Papryka słodka Pieprz Sól Zioła prowansalskie"},
+"token":"LNdVLB+YY17f4BU2Onmiqms++N0eZ4ivZMGNAHTGpDC7BtDe2Sq9rRh5Qbp6O+pu"
+}
+
+[24.11.2015 02:07:53] PIT: Różnica między PUTem a POSTem, to brak id, ponieważ tworząc nowy przepis nie ma on jeszcze id
+[24.11.2015 02:10:28] PIT: Oraz to, że PUT po poprawnym wykonaniu polecenia zwraca kod HTTP 200, czyli OK. A POST zwraca przepis z przypisaną wartością id.
+[24.11.2015 21:25:25] PIT: Ogarnąłem operację DELETE:
+http://ugotuj.to.hostingasp.pl/api/recipes?token=EqVlVxLBjzzeHyU7iQxDFk3htAPsnd7s4hw3Kc3YCAwwgFnxFwFVg2wCCCwuY9qu&id=3
+[24.11.2015 21:26:00] PIT: w takim razie można dodać możliwość edycji, usuwania do angulara :)

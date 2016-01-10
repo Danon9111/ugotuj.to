@@ -1,40 +1,36 @@
-//changeUserPasswordController - The controller gives the ability to login user through restAPI.
+//changeUserPasswordController - The controller gives the ability change user password.
 
-app.controller('changeUserPasswordController', ['$scope', '$http', 'MessagePrintService', '$rootScope', '$cookies', function($scope, $http, MessagePrintService, $rootScope, $cookies) { 
+app.controller('changeUserPasswordController', ['$scope', '$http', 'Notifications', '$rootScope', '$cookies', 'validateAuthToken', function($scope, $http, Notifications, $rootScope, $cookies, validateAuthToken) {
 
-  $scope.postPath = "http://46.175.46.220/api/" + "ChangePassword";
-  $scope.msgObj = MessagePrintService.msg();
-  $scope.changeUserPasswordForm = {};
-  $scope.changeUserPasswordForm.oldPassword = "";
-  $scope.changeUserPasswordForm.newPassword = "";
-  $scope.changeUserPasswordForm.newPasswordVerify = "";
-  $rootScope.auth = $cookies.authToken;                                       
-  $scope.msgObj.msgPrint("info", "");
+  $rootScope.bgImage = "img/changePasswordImg.jpg";
 
-  $scope.loading = false;
-  $scope.loadingState = "hide";
-  
-  $rootScope.authVerify = function(data) {
-    $cookies.authToken = data.toString();
-    $rootScope.auth = $cookies.authToken;
-  }
-  
+  validateAuthToken.success(function(res) {
+    $scope.validateAuthToken = res;
+  });
+
+  $scope.notificationService = Notifications;
+
+  $scope.changeUserPasswordForm = {
+    oldPassword: '',
+    newPassword: '',
+    newPasswordVerify: ''
+  };
+
   $scope.changeUserPasswordForm.submitTheForm = function(item, event) {
     var dataObject = {
       oldPassword : $scope.changeUserPasswordForm.oldPassword,
       newPassword : $scope.changeUserPasswordForm.newPassword,
       newPasswordVerify : $scope.changeUserPasswordForm.newPasswordVerify,
-      token : $rootScope.auth
+      token : $cookies.authToken
     };
-    
-    
+
+
     if(dataObject.oldPassword == "" || dataObject.newPassword == "" || dataObject.newPasswordVerify != dataObject.newPassword) {
-      $scope.msgObj.msgPrint("alert", "Incorrect data.");
-    } else if(dataObject.token == "") {
-      $scope.msgObj.msgClass = "msg-alert";
-      $scope.msgObj.msgContent += " There's no token! Are you logged in?";
+      $scope.notificationService.Add("alert", "Wprowadziłeś niepoprawne dane. Popraw je i spróbuj ponownie.");
+    } else if($scope.validateAuthToken == false) {
+      $scope.notificationService.Add("alert", "Hmm, wygląda na to, że nie jesteś zalogowany...");
     } else {
-      $http.post($scope.postPath, "token=" + encodeURIComponent(dataObject.token) +
+      $http.post('http://ugotuj.to.hostingasp.pl/api/ChangePassword', "token=" + encodeURIComponent(dataObject.token) +
                           "&oldPassword=" + encodeURIComponent(dataObject.oldPassword) +
                           "&newPassword=" + encodeURIComponent(dataObject.newPassword),
                           {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
@@ -42,27 +38,16 @@ app.controller('changeUserPasswordController', ['$scope', '$http', 'MessagePrint
         $scope.changeUserPasswordForm.oldPassword = "";
         $scope.changeUserPasswordForm.newPassword = "";
         $scope.changeUserPasswordForm.newPasswordVerify = "";
-        if(data.toString() === "Incorrect token or old password!" || data.toString() === "Incorect new password!") {
-          $scope.msgObj.msgPrint("alert", data.toString());
+        if(data.toString() === "Nieprawidłowy token!" || data.toString() === "Nowe hasło jest nieprawidłowe!") {
+          $scope.notificationService.Add("alert", data.toString());
         } else {
-          $scope.msgObj.msgPrint("success", data.toString());
+          $scope.notificationService.Add("success", data.toString());
         }
       })
       .error(function (data) {
-        $scope.msgObj.msgPrint("alert", "Failed to send data to server. try again in a while.");
-        $rootScope.authVerify("authToken", "");
+        $scope.notificationService.Add("alert", "Ups! :( Coś poszło nie tak. Spróbuj ponownie za chwilę.");
+        $cookies.authToken = "";
       })
-    }   
-    
-    $scope.loadingToggle = function() {
-      if($scope.loading === true) {
-        $scope.loading = false;
-        $scope.loadingState = "hide";
-      } else {
-        $scope.loading = true;
-        $scope.loadingState = "show";
-      }
-    };
-    
+    }
   }
 }]);

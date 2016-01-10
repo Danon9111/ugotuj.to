@@ -1,3 +1,12 @@
-<div ng-controller="logoutUserController">
-    <div ng-class="msgObj.msgClass">Status: {{ msgObj.msgContent }}</div>
+<div>
+  <div class="notification-wrapper" ng-hide="notificationService.all == ''">
+    <span ng-repeat="notification in notificationService.all | reverse">
+      <div class="notification" ng-class="notification.type" ng-click="notificationService.Remove(notification)">
+        <p>
+          <span ng-bind="notification.content"></span>
+          <span style="margin-left: 5px;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </p>
+      </div>
+    </span>
+  </div>
 </div>
