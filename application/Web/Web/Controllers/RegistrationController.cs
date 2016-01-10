@@ -14,6 +14,7 @@ namespace Web.Controllers
         KsiazkaKucharskaModelContainer db = new KsiazkaKucharskaModelContainer();
 
         // GET api/values
+        [HttpGet]
         public UserHelper Get()
         {
             UserHelper user = new UserHelper();
@@ -23,7 +24,7 @@ namespace Web.Controllers
             return user;
         }
         
-        // POST api/values
+        [HttpPost]
         public String Post([FromBody]UserHelper user)
         {
             // e-mail address, login, password, confirm password
@@ -43,16 +44,16 @@ namespace Web.Controllers
             if (element.Count() != 0) return "Użytkownik o takim loginie istnieje!";
             if (element2.Count() != 0) return "Istnieje użytkownik o takim adresie email!";
             if (password.Length < 5) return "Zbyt krótkie hasło!";
-            if (!IsValid(email)) return "Podane hasło jest niepoprawne!";
+            if (!IsValid(email)) return "Podany adres email jest niepoprawny!";
 
             User uzytkownik = new Models.User();
             uzytkownik.Login = login;
             uzytkownik.Name = login;
             uzytkownik.Password = password;
+            uzytkownik.Salt = password;
             uzytkownik.Email = email;
             
             db.UserSet.Add(uzytkownik);
-
             db.SaveChanges();
 
             return "Konto użytkownika zostało dodane poprawnie!";
