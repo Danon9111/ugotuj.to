@@ -3,6 +3,7 @@
 app.controller('changeUserPasswordController', ['$scope', '$http', 'Notifications', '$rootScope', '$cookies', 'validateAuthToken', function($scope, $http, Notifications, $rootScope, $cookies, validateAuthToken) {
 
   $rootScope.bgImage = "img/changePasswordImg.jpg";
+  $rootScope.meta.title = "Zmiana hasła";
 
   validateAuthToken.success(function(res) {
     $scope.validateAuthToken = res;
