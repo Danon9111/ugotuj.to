@@ -7,7 +7,7 @@ app.controller('lastRecipesController',['$scope', '$http', '$route', '$rootScope
 
   $scope.lastRecipes = {};
 
-  $http.get('http://ugotuj.to.hostingasp.pl/api/latestrecipe')
+  $http.get('/api/latestrecipe')
     .success(function(res) {
       $scope.lastRecipes = res;
       $scope.slides = [];

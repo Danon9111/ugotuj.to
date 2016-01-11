@@ -15,7 +15,7 @@ app.directive('accountprofile', ['$cookies', 'validateAuthToken', function($cook
         if($scope.validateAuthToken) {
           return 'js/directives/accountprofile.html';
         } else {
-          return 'js/directives/error404.html';
+          return 'js/directives/error403.html';
         }
       }
     },

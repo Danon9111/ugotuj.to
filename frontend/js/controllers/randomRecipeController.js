@@ -6,7 +6,7 @@ app.controller('randomRecipeController',['$scope', '$http', '$route', '$rootScop
   $rootScope.bgImage = "";
 
   $scope.randomRecipe = {};
-  $http.get('http://ugotuj.to.hostingasp.pl/api/randomrecipe')
+  $http.get('/api/randomrecipe')
 
     .success(function(res) {
       $scope.randomRecipe = res;

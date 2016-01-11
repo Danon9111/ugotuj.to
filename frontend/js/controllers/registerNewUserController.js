@@ -36,7 +36,7 @@ app.controller('registerNewUserController', ['$scope', '$http', 'Notifications',
         $scope.notificationService.Add("alert", "Nie zaakceptowałeś regulaminu.");
     } else {
       if(dataObject.password.toString() === dataObject.passwordVerify.toString()) {
-        $http.post('http://ugotuj.to.hostingasp.pl/api/registration', "email=" + encodeURIComponent(dataObject.email) +
+        $http.post('/api/registration', "email=" + encodeURIComponent(dataObject.email) +
                             "&login=" + encodeURIComponent(dataObject.login) +
                             "&password=" + encodeURIComponent(dataObject.password),
                             { headers: {'Content-Type': 'application/x-www-form-urlencoded'} })

@@ -9,7 +9,7 @@ app.controller('logoutUserController', ['$scope', '$http', 'Notifications', '$ro
 
   $scope.notificationService = Notifications;
 
-  $http.post('http://ugotuj.to.hostingasp.pl/api/logout?', "token=" + encodeURIComponent($cookies.authToken),
+  $http.post('/api/logout?', "token=" + encodeURIComponent($cookies.authToken),
                         {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
     .success(function (data) {
       $cookies.authToken = "";

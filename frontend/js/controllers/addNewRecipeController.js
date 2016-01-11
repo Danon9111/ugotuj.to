@@ -84,7 +84,7 @@ app.controller('addNewRecipeController',['$scope', '$http', 'Notifications', '$r
         ingredients: $scope.ingredientsToHtml(),
       };
 
-      $http.post('http://ugotuj.to.hostingasp.pl/api/Add', dataObject)
+      $http.post('/api/Add', dataObject)
       .success(function (data) {
         if(data.toString() === "Przepis został dodany!") {
           $scope.notificationService.Add("success", data.toString());

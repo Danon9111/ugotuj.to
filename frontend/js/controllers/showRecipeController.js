@@ -4,6 +4,14 @@ showRecipeController - The controller gives the ability to load specific recipe 
 
 app.controller('showRecipeController',['$scope', '$http', 'Notifications', '$rootScope', '$routeParams', '$cookies', '$route', 'validateAuthToken', '$sce', function($scope, $http, Notifications, $rootScope, $cookies, $routeParams, $route, validateAuthToken, $sce) {
 
+  validateAuthToken.success(function(res) {
+    if(res === false) {
+      $cookies.authToken = "";
+    } else {
+      $scope.validateAuthToken = res;
+    }
+  });
+
   $rootScope.bgImage = "";
   $rootScope.meta.title = "Przepis";
 
@@ -12,13 +20,9 @@ app.controller('showRecipeController',['$scope', '$http', 'Notifications', '$roo
   $scope.difficultyImg = "";
   $scope.timeImg = "time_hard";
 
-  validateAuthToken.success(function(res) {
-    $scope.validateAuthToken = res;
-  });
-
   $scope.isRecipeFavourite = function() {
     if($routeParams.authToken != null && $routeParams.authToken != "") {
-      $http.post('http://ugotuj.to.hostingasp.pl/api/isFavoriteRecipe', { token: $routeParams.authToken, recipeid: $route.current.params.recipeId })
+      $http.post('/api/isFavoriteRecipe', { token: $routeParams.authToken, recipeid: $route.current.params.recipeId })
       .success(function(res) {
         $scope.isFav = res;
         return res;
@@ -33,7 +37,7 @@ app.controller('showRecipeController',['$scope', '$http', 'Notifications', '$roo
   }
 
   $scope.addToFavourites = function(id) {
-    $http.post('http://ugotuj.to.hostingasp.pl/api/addFavoriteRecipe', { token: $routeParams.authToken, recipeid: id })
+    $http.post('/api/addFavoriteRecipe', { token: $routeParams.authToken, recipeid: id })
     .success(function(res) {
       $scope.isRecipeFavourite();
     })
@@ -52,7 +56,7 @@ app.controller('showRecipeController',['$scope', '$http', 'Notifications', '$roo
     })
   }
 
-  $scope.showRecipePostPath = "http://ugotuj.to.hostingasp.pl/api/Recipe/" + $route.current.params.recipeId;
+  $scope.showRecipePostPath = "/api/Recipe/" + $route.current.params.recipeId;
   $scope.recipe = {};
   $scope.isRecipeFavourite();
 
