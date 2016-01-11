@@ -9,12 +9,12 @@ app.controller('loginUserController', ['$scope', '$http', 'Notifications', '$roo
 
   $scope.notificationService = Notifications;
 
-  $scope.loginForm = {};
-  $scope.loginForm.login = "";
-  $scope.loginForm.password = "";
+  $scope.loginForm = {
+    login: "",
+    password: ""
+  };
 
   $scope.loginForm.submitTheForm = function(item, event) {
-
     var dataObject = {
       login : $scope.loginForm.login,
       password : $scope.loginForm.password
@@ -22,7 +22,7 @@ app.controller('loginUserController', ['$scope', '$http', 'Notifications', '$roo
 
     $scope.loading = true; //Start loading wheel animation.
 
-    $http.post('http://ugotuj.to.hostingasp.pl/api/login?', "login=" + encodeURIComponent(dataObject.login) +
+    $http.post('/api/login?', "login=" + encodeURIComponent(dataObject.login) +
                         "&password=" + encodeURIComponent(dataObject.password),
                         {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
     .success(function (data) {

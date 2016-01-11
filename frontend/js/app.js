@@ -26,7 +26,7 @@ app.factory("Notifications", function() {
 
 /* Code that is running at start of the page. */
 app.run(function($rootScope, $cookies, $cookieStore) {
-  $rootScope.basePath = "/Frontend/";
+  $rootScope.basePath = "/";
   $rootScope.meta = {};
   $rootScope.meta.title = "Strona główna";
   $rootScope.meta.activeLinks = {};
@@ -40,11 +40,15 @@ app.run(function($rootScope, $cookies, $cookieStore) {
 });
 
 /* Service for validating if token which is in the cookies is in the database. */
-app.factory('validateAuthToken', ['$http', '$cookies', function($http, $cookies) {
-  return $http.post('http://ugotuj.to.hostingasp.pl/api/auth', $cookies.authToken)
+app.factory('validateAuthToken', ['$http', '$cookies', '$rootScope', function($http, $cookies, $rootScope) {
+  return $http.post('/api/auth', $cookies.authToken)
 
   .success(function(res) {
-    return res.toString();
+    if(res === false) {
+      $cookies.authToken = "";
+      $rootScope.loggedIn = false;
+    }
+    return res;
   })
 
   .error(function(res) {
@@ -139,7 +143,6 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     .otherwise({
       redirectTo : '/ohmy',
       templateUrl : 'error404.html',
-      controller  : 'error404Controller',
       title: 'Błąd 404 - Nie znaleziono strony'
     });
 

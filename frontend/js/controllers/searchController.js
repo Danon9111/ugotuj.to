@@ -25,7 +25,7 @@ app.controller('searchController', ['$scope', '$http', '$rootScope', '$cookies',
     } else {
       $scope.loading = true;
       $scope.specialImage = false;
-      $http.get('http://ugotuj.to.hostingasp.pl/api/SearchRecipe?query=' + $scope.searchWords)
+      $http.get('/api/SearchRecipe?query=' + $scope.searchWords)
         .success(function(res) {
           $scope.searchResults = res;
         })

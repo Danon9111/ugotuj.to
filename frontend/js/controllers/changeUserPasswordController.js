@@ -30,7 +30,7 @@ app.controller('changeUserPasswordController', ['$scope', '$http', 'Notification
     } else if($scope.validateAuthToken == false) {
       $scope.notificationService.Add("alert", "Hmm, wygląda na to, że nie jesteś zalogowany...");
     } else {
-      $http.post('http://ugotuj.to.hostingasp.pl/api/ChangePassword', "token=" + encodeURIComponent(dataObject.token) +
+      $http.post('/api/ChangePassword', "token=" + encodeURIComponent(dataObject.token) +
                           "&oldPassword=" + encodeURIComponent(dataObject.oldPassword) +
                           "&newPassword=" + encodeURIComponent(dataObject.newPassword),
                           {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})

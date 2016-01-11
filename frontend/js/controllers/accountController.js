@@ -16,7 +16,7 @@ app.controller('accountController',['$scope', '$http', '$route', '$rootScope', '
 
   /* Retrieve user profilephoto */
   $scope.retrieveUserPhoto = function() {
-    $http.get('http://ugotuj.to.hostingasp.pl/api/profilephoto?token=' + $cookies.authToken)
+    $http.get('/api/profilephoto?token=' + $cookies.authToken)
     .success(function(res) {
       if(res == null) {
         $scope.user.profilephoto = img/avatar.png;
@@ -35,11 +35,13 @@ app.controller('accountController',['$scope', '$http', '$route', '$rootScope', '
       //Take the first selected file
       fd.append("file", files[0]);
       $scope.loading = true;
-      if(files[0].size > 1000000) {
+      if(files[0].size >= 1000000) {
         $scope.loading = false;
-        $scope.notificationService.Add("alert", "Rozmiar pliku jest za duży.");
+        files = null;
+        fd = null;
+        //$scope.notificationService.Add("alert", "Rozmiar pliku jest za duży.");
       } else {
-        $http.post('http://ugotuj.to.hostingasp.pl/api/profilephoto?token=' + $cookies.authToken, fd, {
+        $http.post('/api/profilephoto?token=' + $cookies.authToken, fd, {
             withCredentials: true,
             headers: {'Content-Type': undefined },
             transformRequest: angular.identity
@@ -72,12 +74,12 @@ app.controller('accountController',['$scope', '$http', '$route', '$rootScope', '
 
   /* Remove recipe by ID */
   $scope.removeRecipeById = function(id) {
-    $http.post('http://ugotuj.to.hostingasp.pl/api/remove', { token: $cookies.authToken, id: id })
+    $http.post('/api/remove', { token: $cookies.authToken, id: id })
     .success(function(res) {
       console.log('Done it!');
     })
 
-    $http.post('http://ugotuj.to.hostingasp.pl/api/userprofile', { token: $cookies.authToken })
+    $http.post('/api/userprofile', { token: $cookies.authToken })
     .success(function(res) {
       $rootScope.userRecipes = res["recipes"];
       if(res["recipes"] == null || res["recipes"] == "") {
@@ -91,14 +93,14 @@ app.controller('accountController',['$scope', '$http', '$route', '$rootScope', '
 
   /* Retrieve recipes written by user */
   if($scope.validateAuthToken != true) {
-    window.location="http://ugotuj.to.hostingasp.pl/Frontend/account/login";
+    window.location="/account/login";
   } else {
 
     $scope.retrieveUserPhoto();
     $scope.user = {};
     $rootScope.userRecipes = {};
 
-    $http.post('http://ugotuj.to.hostingasp.pl/api/userprofile', { token: $cookies.authToken })
+    $http.post('/api/userprofile', { token: $cookies.authToken })
     .success(function(res) {
       $scope.user = res;
       $rootScope.userRecipes = res["recipes"];

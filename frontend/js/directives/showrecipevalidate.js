@@ -7,7 +7,7 @@ app.directive('showrecipevalidate', ['$cookies', '$route', '$http', function($co
     restrict: 'A',
     link: function($scope) {
 
-      $http.get("http://ugotuj.to.hostingasp.pl/api/Recipe/" + $route.current.params.recipeId)
+      $http.get("/api/Recipe/" + $route.current.params.recipeId)
       .success(function (data) {
         if(data["error"] == null) {
           $scope.allow = true;
