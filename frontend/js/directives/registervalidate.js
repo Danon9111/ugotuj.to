@@ -1,9 +1,8 @@
 /*
-addrecipe directive chooses to show result view or the error one.
+registervalidate directive chooses to show result view or the error one.
 */
 
-
-app.directive('addrecipe', ['$cookies', 'validateAuthToken', function($cookies, validateAuthToken) {
+app.directive('registervalidate', ['$cookies', 'validateAuthToken', function($cookies, validateAuthToken) {
   return {
     restrict: 'A',
     link: function($scope) {
@@ -13,8 +12,8 @@ app.directive('addrecipe', ['$cookies', 'validateAuthToken', function($cookies, 
       });
 
       $scope.getContentUrl = function() {
-        if($scope.validateAuthToken) {
-          return 'js/directives/addrecipe.html';
+        if($scope.validateAuthToken == false) {
+          return 'js/directives/registervalidate.html';
         } else {
           return 'js/directives/error403.html';
         }

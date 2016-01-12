@@ -1,60 +1,79 @@
-<div class="logon">
-  <fieldset name="Add new recipe">
-    <legend>Dodawanie przepisu</legend>
-    <form class="contact-form" role="form">
-      <div class="contact-form-group left space-form-control">
-        <input ng-model="addNewRecipeForm.name" id="name" type="text" placeholder="Nazwa dania" class="form-control">
-      </div>
-      <div class="contact-form-group left space-form-control">
-        <text-angular ta-toolbar="[['bold','italics', 'underline','quote', 'ul', 'ol', 'wordcount', 'charcount']]" ng-model="addNewRecipeForm.description" id="description" type="text" placeholder="Króki opis"></text-angular>
-      </div>
-      <div class="contact-form-group left space-form-control">
-        <text-angular ta-toolbar="[['bold', 'italics', 'underline', 'quote', 'ul', 'ol', 'clear', 'redo', 'undo','wordcount', 'charcount']]" ng-model="addNewRecipeForm.preparation" id="preparation" type="text" placeholder="Przepis"></text-angular>
-      </div>
-      <div class="contact-form-group left space-form-control">
-        <input ng-model="addNewRecipeForm.photo" id="photo" type="text" placeholder="Zdjęcie" class="form-control">
-      </div>
-      <div class="contact-form-group left space-form-control">
-        <input ng-model="addNewRecipeForm.video" id="video" type="text" placeholder="Wideo(opcjonalnie)" class="form-control">
-      </div>
-      <div class="contact-form-group left space-form-control">
-        <input ng-model="addNewRecipeForm.readyIn" id="readyIn" type="text" placeholder="Czas przygotowania(min)" class="form-control">
-      </div>
-      <div class="contact-form-group left space-form-control">
-        
-        <!--<input ng-model="addNewRecipeForm.difficulty" id="difficulty" type="text" placeholder="Trudność przygotowania" class="form-control">-->
-        Trudność:
-      <div class="btn-group">
-        <label class="btn btn-default" ng-model="addNewRecipeForm.difficulty" uib-btn-radio="'1'">1</label>
-        <label class="btn btn-default" ng-model="addNewRecipeForm.difficulty" uib-btn-radio="'2'">2</label>
-        <label class="btn btn-default" ng-model="addNewRecipeForm.difficulty" uib-btn-radio="'3'">3</label>
-        <label class="btn btn-default" ng-model="addNewRecipeForm.difficulty" uib-btn-radio="'4'">4</label>
-        <label class="btn btn-default" ng-model="addNewRecipeForm.difficulty" uib-btn-radio="'5'">5</label>
-      </div>
-        
-        
-      </div>
-      <div class="contact-form-group left space-form-control">
-        <input ng-model="addNewRecipeForm.category" id="category" type="text" placeholder="Kategoria dania" class="form-control">
-      </div>
-      <!-- Składniki -->
-      <div class="contact-form-group left space-form-control">
-        <div data-ng-repeat="ingredient in ingredients">
-          <div class="input-group">
-            <input ng-model="ingredient.ingredient" ingredient="" id="ingredients" type="text" placeholder="Dodaj składnik" class="form-control col-lg-10">
-            <span class="input-group-btn">
-              <button class="btn btn-primary btn-lg remove-item" ng-click="removeIngredientField(ingredient.id)"><span class="glyphicon glyphicon-minus" style="margin-left: -5px;" aria-hidden="true"></span></button>
-            </span>
-          </div>
+<div class="container begin-space">
+  <div class="row col-md-offset-2">
+    <div class="col-sm-9">
+      <div ng-controller="addNewRecipeController">
+        <div class="logon">
+          <fieldset name="Add new recipe">
+            <legend>Dodawanie przepisu</legend>
+            <form class="contact-form" role="form">
+              <div class="contact-form-group left space-form-control">
+                <input ng-model="addNewRecipeForm.name" id="name" type="text" placeholder="Nazwa dania" class="form-control">
+              </div>
+              <div class="contact-form-group left space-form-control">
+                <text-angular ta-toolbar="[['bold','italics', 'underline','quote', 'ul', 'ol', 'wordcount', 'charcount']]" ng-model="addNewRecipeForm.description" id="description" type="text" placeholder="Króki opis"></text-angular>
+              </div>
+              <div class="contact-form-group left space-form-control">
+                <text-angular ta-toolbar="[['bold', 'italics', 'underline', 'quote', 'ul', 'ol', 'clear', 'redo', 'undo','wordcount', 'charcount']]" ng-model="addNewRecipeForm.preparation" id="preparation" type="text" placeholder="Przepis"></text-angular>
+              </div>
+              <div class="contact-form-group left space-form-control">
+                <input ng-model="addNewRecipeForm.photo" id="photo" type="text" placeholder="Zdjęcie" class="form-control">
+              </div>
+              <div class="contact-form-group left space-form-control">
+                <input ng-model="addNewRecipeForm.video" id="video" type="text" placeholder="Wideo(opcjonalnie)" class="form-control">
+              </div>
+              <div class="contact-form-group left space-form-control">
+                <input ng-model="addNewRecipeForm.readyIn" id="readyIn" type="text" placeholder="Czas przygotowania(min)" class="form-control">
+              </div>
+              <div class="contact-form-group left space-form-control">
+
+                <!--<input ng-model="addNewRecipeForm.difficulty" id="difficulty" type="text" placeholder="Trudność przygotowania" class="form-control">-->
+                Trudność:
+              <div class="btn-group">
+                <label class="btn btn-default" ng-model="addNewRecipeForm.difficulty" uib-btn-radio="'1'">1</label>
+                <label class="btn btn-default" ng-model="addNewRecipeForm.difficulty" uib-btn-radio="'2'">2</label>
+                <label class="btn btn-default" ng-model="addNewRecipeForm.difficulty" uib-btn-radio="'3'">3</label>
+                <label class="btn btn-default" ng-model="addNewRecipeForm.difficulty" uib-btn-radio="'4'">4</label>
+                <label class="btn btn-default" ng-model="addNewRecipeForm.difficulty" uib-btn-radio="'5'">5</label>
+              </div>
+
+
+              </div>
+              <div class="contact-form-group left space-form-control">
+                <input ng-model="addNewRecipeForm.category" id="category" type="text" placeholder="Kategoria dania" class="form-control">
+              </div>
+              <!-- Składniki -->
+              <div class="contact-form-group left space-form-control">
+                <div data-ng-repeat="ingredient in ingredients">
+                  <div class="input-group">
+                    <input ng-model="ingredient.ingredient" ingredient="" id="ingredients" type="text" placeholder="Dodaj składnik" class="form-control col-lg-10">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary btn-lg remove-item" ng-click="removeIngredientField(ingredient.id)"><span class="glyphicon glyphicon-minus" style="margin-left: -5px;" aria-hidden="true"></span></button>
+                    </span>
+                  </div>
+                </div>
+                <!-- ng-show="$last" -->
+                <button class="btn btn-success btn-lg add-item pull-right" style="margin-bottom: 3px;"  ng-click="addIngredientField()"><span class="glyphicon glyphicon-plus" style="margin-left: -4px;" aria-hidden="true"></span></button>
+              </div>
+              <!-- Składniki -->
+              <br>
+              <br>
+              <br>
+              <button ng-click="addNewRecipeForm.submitTheForm()" class="btn btn-lg btn-primary btn-block space-form-control">Dodaj przepis</button>
+            </form>
+          </fieldset>
         </div>
-        <!-- ng-show="$last" -->
-        <button class="btn btn-success btn-lg add-item pull-right" style="margin-bottom: 3px;"  ng-click="addIngredientField()"><span class="glyphicon glyphicon-plus" style="margin-left: -4px;" aria-hidden="true"></span></button>
+        <br>
+        <div class="notification-wrapper" ng-hide="notificationService.all == ''">
+          <span ng-repeat="notification in notificationService.all | reverse">
+            <div class="notification" ng-class="notification.type" ng-click="notificationService.Remove(notification)">
+              <p>
+                <span ng-bind="notification.content"></span>
+                <span style="margin-left: 5px;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </p>
+            </div>
+          </span>
+        </div>
       </div>
-      <!-- Składniki -->
-      <br>
-      <br>
-      <br>
-      <button ng-click="addNewRecipeForm.submitTheForm()" class="btn btn-lg btn-primary btn-block space-form-control">Dodaj przepis</button>
-    </form>
-  </fieldset>
+    </div>
+  </div>
 </div>

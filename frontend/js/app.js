@@ -140,9 +140,14 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
       title: 'Zmień hasło'
     })
 
+    .when('/403', {
+      templateUrl : 'js/directives/error403.html',
+      title: 'Błąd 403'
+    })
+
     .otherwise({
       redirectTo : '/ohmy',
-      templateUrl : 'error404.html',
+      templateUrl : 'js/directives/error404.html',
       title: 'Błąd 404 - Nie znaleziono strony'
     });
 
