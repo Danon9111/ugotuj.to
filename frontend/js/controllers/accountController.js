@@ -7,6 +7,13 @@ app.controller('accountController',['$scope', '$http', '$route', '$rootScope', '
   $rootScope.meta.title = "Moje konto";
   $rootScope.bgImage = "";
 
+  $scope.user = {};
+  $rootScope.userRecipes = {};
+
+  if($scope.user.profilephoto == null) {
+    $scope.user.profilephoto = 'img/avatar.png';
+  }
+
   $scope.notificationService = Notifications;
 
   validateAuthToken.success(function(res) {
@@ -19,12 +26,12 @@ app.controller('accountController',['$scope', '$http', '$route', '$rootScope', '
     $http.get('/api/profilephoto?token=' + $cookies.authToken)
     .success(function(res) {
       if(res == null) {
-        $scope.user.profilephoto = img/avatar.png;
+        $scope.user.profilephoto = 'img/avatar.png';
       }
       $scope.user.profilephoto = res;
     })
     .error(function(res) {
-      $scope.user.profilephoto = img/avatar.png;
+      $scope.user.profilephoto = 'img/avatar.png';
     });
   }
   /* Retrieve user profilephoto end */
@@ -97,8 +104,6 @@ app.controller('accountController',['$scope', '$http', '$route', '$rootScope', '
   } else {
 
     $scope.retrieveUserPhoto();
-    $scope.user = {};
-    $rootScope.userRecipes = {};
 
     $http.post('/api/userprofile', { token: $cookies.authToken })
     .success(function(res) {
