@@ -10,6 +10,7 @@ app.controller('changeUserPasswordController', ['$scope', '$http', 'Notification
   });
 
   $scope.notificationService = Notifications;
+  $scope.notificationService.all = [];
 
   $scope.changeUserPasswordForm = {
     oldPassword: '',

@@ -8,6 +8,7 @@ app.controller('loginUserController', ['$scope', '$http', 'Notifications', '$roo
   $rootScope.bgImage = "img/loginBg_3.jpg";
 
   $scope.notificationService = Notifications;
+  $scope.notificationService.all = [];
 
   $scope.loginForm = {
     login: "",
