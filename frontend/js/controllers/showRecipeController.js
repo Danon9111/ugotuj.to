@@ -16,6 +16,7 @@ app.controller('showRecipeController',['$scope', '$http', 'Notifications', '$roo
   $rootScope.meta.title = "Przepis";
 
   $scope.notificationService = Notifications;
+  $scope.notificationService.all = [];
 
   $scope.difficultyImg = "";
   $scope.timeImg = "time_hard";
@@ -74,6 +75,9 @@ app.controller('showRecipeController',['$scope', '$http', 'Notifications', '$roo
       ingredients: data["ingredients"],
       user: data["user"],
       id: $route.current.params.recipeId,
+    }
+    if($scope.recipe.photo == "" || $scope.recipe.photo == "undefined") {
+      $scope.recipe.photo = 'img/nophoto.jpg';
     }
     if($scope.recipe.video != "" && $scope.recipe.video != null) {
       if($scope.recipe.video.search("youtube") != -1) {
