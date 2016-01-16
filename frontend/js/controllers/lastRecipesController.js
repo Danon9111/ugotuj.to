@@ -11,7 +11,12 @@ app.controller('lastRecipesController',['$scope', '$http', '$route', '$rootScope
     .success(function(res) {
       $scope.lastRecipes = res;
       $scope.slides = [];
-    $scope.slides = res;
+      for(var recipe in res) {
+        if($scope.lastRecipes[recipe].photo == "" || $scope.lastRecipes[recipe].photo == "img/nophoto.jpg") {
+          $scope.lastRecipes[recipe].photo = 'img/woodenBg_8.jpg';
+        }
+      }
+      $scope.slides = res;
     })
 
   $scope.myInterval = 5000;

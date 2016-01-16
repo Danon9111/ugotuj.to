@@ -9,6 +9,7 @@ app.controller('addNewRecipeController',['$scope', '$http', 'Notifications', '$r
   $rootScope.meta.title = "Dodaj przepis";
 
   $scope.notificationService = Notifications;
+  $scope.notificationService.all = [];
 
   validateAuthToken.success(function(res) {
     $scope.validateAuthToken = res;
@@ -83,6 +84,10 @@ app.controller('addNewRecipeController',['$scope', '$http', 'Notifications', '$r
         category: $scope.addNewRecipeForm.category,
         ingredients: $scope.ingredientsToHtml(),
       };
+
+      if(dataObject.photo == "") {
+        dataObject.photo = 'img/nophoto.jpg';
+      }
 
       $http.post('/api/Add', dataObject)
       .success(function (data) {

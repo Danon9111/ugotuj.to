@@ -10,13 +10,13 @@
                 <input ng-model="addNewRecipeForm.name" id="name" type="text" placeholder="Nazwa dania" class="form-control">
               </div>
               <div class="contact-form-group left space-form-control">
-                <text-angular ta-toolbar="[['bold','italics', 'underline','quote', 'ul', 'ol', 'wordcount', 'charcount']]" ng-model="addNewRecipeForm.description" id="description" type="text" placeholder="Króki opis"></text-angular>
+                <text-angular ta-toolbar="[['bold','italics', 'underline','quote', 'ul', 'ol', 'wordcount', 'charcount']]" ng-model="addNewRecipeForm.description" id="description" type="text" placeholder="Króki opis" ta-text-editor-class="form-control myform1-height" ta-html-editor-class="form-control myform1-height"></text-angular>
               </div>
               <div class="contact-form-group left space-form-control">
-                <text-angular ta-toolbar="[['bold', 'italics', 'underline', 'quote', 'ul', 'ol', 'clear', 'redo', 'undo','wordcount', 'charcount']]" ng-model="addNewRecipeForm.preparation" id="preparation" type="text" placeholder="Przepis"></text-angular>
+                <text-angular ta-toolbar="[['bold', 'italics', 'underline', 'quote', 'ul', 'ol', 'clear', 'redo', 'undo','wordcount', 'charcount']]" ng-model="addNewRecipeForm.preparation" id="preparation" type="text" placeholder="Treść przepisu"></text-angular>
               </div>
               <div class="contact-form-group left space-form-control">
-                <input ng-model="addNewRecipeForm.photo" id="photo" type="text" placeholder="Zdjęcie" class="form-control">
+                <input ng-model="addNewRecipeForm.photo" id="photo" type="text" placeholder="Zdjęcie(opcjonalnie)" class="form-control">
               </div>
               <div class="contact-form-group left space-form-control">
                 <input ng-model="addNewRecipeForm.video" id="video" type="text" placeholder="Wideo(opcjonalnie)" class="form-control">

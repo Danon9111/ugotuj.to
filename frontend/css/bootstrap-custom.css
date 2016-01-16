@@ -765,3 +765,17 @@ form .progress {
     filter: alpha(opacity=0);
 }
 /* file upload button end */
+
+.ta-editor.form-control.myform1-height, .ta-scroll-window.form-control.myform1-height  {
+    min-height: 50px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+}
+
+.form-control.myform1-height > .ta-bind {
+    height: auto;
+    min-height: 50px;
+    padding: 6px 12px;
+}
