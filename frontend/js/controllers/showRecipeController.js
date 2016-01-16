@@ -76,6 +76,7 @@ app.controller('showRecipeController',['$scope', '$http', 'Notifications', '$roo
       user: data["user"],
       id: $route.current.params.recipeId,
     }
+
     if($scope.recipe.photo == "" || $scope.recipe.photo == "undefined") {
       $scope.recipe.photo = 'img/nophoto.jpg';
     }

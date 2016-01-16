@@ -293,7 +293,6 @@ footer {
   transform: translateY(-50%);
 }
 
-
 .center-vertical-align {
   display: inline-block;
   vertical-align: middle;
@@ -305,6 +304,8 @@ footer {
 
 .ingredients-wrapper {
   padding: 0px 10px 10px 10px;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .ingredients h3 {

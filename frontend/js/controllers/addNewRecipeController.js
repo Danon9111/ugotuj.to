@@ -51,8 +51,12 @@ app.controller('addNewRecipeController',['$scope', '$http', 'Notifications', '$r
       var checkEmpty = "";
       for (var ing in $scope.ingredients) {
         checkEmpty += $scope.ingredients[ing].ingredient;
-        if(checkEmpty.replace(/ /g,'') != "" && checkEmpty.replace(/ /g,'') != "undefined") {
+        // if(checkEmpty.replace(/ /g,'') != "" && checkEmpty.replace(/ /g,'') != "undefined" ) {
+        //   makeHtml += "<li>" + $scope.ingredients[ing].ingredient + "</li>";
+        // }
+        if($scope.ingredients[ing].ingredient != "" && $scope.ingredients[ing].ingredient != "undefined" && $scope.ingredients[ing].ingredient != null ) {
           makeHtml += "<li>" + $scope.ingredients[ing].ingredient + "</li>";
+          console.log(makeHtml);
         }
       }
       if(checkEmpty.replace(/ /g,'') != "" && checkEmpty.replace(/ /g,'') != "undefined") {
