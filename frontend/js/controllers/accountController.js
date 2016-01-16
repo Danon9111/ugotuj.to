@@ -15,6 +15,7 @@ app.controller('accountController',['$scope', '$http', '$route', '$rootScope', '
   }
 
   $scope.notificationService = Notifications;
+  $scope.notificationService.all = [];
 
   validateAuthToken.success(function(res) {
     $scope.validateAuthToken = res;

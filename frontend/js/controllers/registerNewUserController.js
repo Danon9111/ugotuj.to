@@ -8,6 +8,7 @@ app.controller('registerNewUserController', ['$scope', '$http', 'Notifications',
   $rootScope.bgImage = "img/registerImg.jpg";
 
   $scope.notificationService = Notifications;
+  $scope.notificationService.all = [];
 
   $scope.loading = false;
 

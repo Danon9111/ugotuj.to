@@ -8,6 +8,7 @@ app.controller('logoutUserController', ['$scope', '$http', 'Notifications', '$ro
   $rootScope.bgImage = "";
 
   $scope.notificationService = Notifications;
+  $scope.notificationService.all = [];
 
   $http.post('/api/logout?', "token=" + encodeURIComponent($cookies.authToken),
                         {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
