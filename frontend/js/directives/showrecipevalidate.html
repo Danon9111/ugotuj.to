@@ -66,7 +66,10 @@
         </div>
       </div>
       <div class="col-sm-3 dishImage-wrapper">
-        <a ng-href="{{ recipe.photo }}">
+        <a ng-show="recipe.photo != 'img/nophoto.jpg'" ng-href="{{ recipe.photo }}">
+          <div class="dishImage" ng-style="{'background-image':'url('+recipe.photo+')'}"></div>
+        </a>
+        <a ng-show="recipe.photo == 'img/nophoto.jpg'" ng-href="">
           <div class="dishImage" ng-style="{'background-image':'url('+recipe.photo+')'}"></div>
         </a>
       </div>
